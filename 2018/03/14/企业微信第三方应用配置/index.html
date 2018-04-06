@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>企业微信第三方应用配置 | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/archives">archive</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2018/03/14/企业微信第三方应用配置/">企业微信第三方应用配置</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">March 14 2018</p>
+  </section>
+
+  <section class="article-entry">
+    <p>TIPS：在我开发之前，在网上找的文档之类的，都是说应用要在<strong>套件</strong>下创建，但是企业微信已经取消了这个套件，直接就是应用了</p>
+<h2 id="创建应用"><a href="#创建应用" class="headerlink" title="创建应用"></a>创建应用</h2><h3 id="前期配置"><a href="#前期配置" class="headerlink" title="前期配置"></a>前期配置</h3><ul>
+<li>想要发布第三方应用，首先要注册成<a href="https://open.work.weixin.qq.com/" target="_blank" rel="noopener"><strong>微信服务商</strong></a></li>
+<li>完善品牌、官网等信息，提交申请。注：品牌下可以有多个应用，目前企业微信已取消了，套件这个东西</li>
+<li>登录服务商应用后台 -&gt; 标准应用服务 -&gt; 本地应用 -&gt; 创建应用（创建应用配置分基础信息和开发信息，开发信息是重头戏）</li>
+</ul>
+<h3 id="开发配置"><a href="#开发配置" class="headerlink" title="开发配置"></a>开发配置</h3><p>捡了一此主要的配置来写：</p>
+<ul>
+<li>应用主页：这个是在工作台点击应用后，直接跳转的页面。这个url中支持<code>$CORPID$</code>，这个会转换成打开应用的企业的<code>corpid</code>，前端获得这个参数，传给后台处理得到签名（如果想使用jsapi的功能的话）。</li>
+<li>可信域名：这个就是填写你的网站的域名即可</li>
+<li><strong>数据回调URL</strong>和<strong>指令回调URL</strong>：这两个在创建应用的时候，微信服务器都会发送一个校验，这个是<a href="https://work.weixin.qq.com/api/doc#12977/%E9%AA%8C%E8%AF%81URL%E6%9C%89%E6%95%88%E6%80%A7" target="_blank" rel="noopener">官网教的处理方法</a>。从校验的角度来说这两个接口是一样的。但是功能上是有区别的。<ul>
+<li>数据回调URL：这个是第三方应用创建完成后，接收企业信息的。这个URL中支持和应用主页一样的<code>$CORPID$</code>参数，来区分是哪个企业发来的信息</li>
+<li>指令回调URL：这个作用比较大，是接收一些<strong>授权信息</strong>和<strong>ticket</strong>参数</li>
+</ul>
+</li>
+</ul>
+<p>说明：这两个回调URL在验证的时候是<code>GET</code>请求，在业务处理上是<code>POST</code>请求。<br>获取到永久授权码和corpid之后，需要存到数据库中</p>
+<p>最后在使用的时候就是这么个过程</p>
+<ol>
+<li>前端请求后台接口，获取签名，携带参数为<code>corpid</code>，这个值前端可以从应用主页的url中就可以获取。另一个参数是当前页面的<code>url</code>用于后台生成签名。</li>
+<li>后台接收<code>corpid</code>后从数据库中查询出该企业的永久授权码，再结合推送到指令回调的<code>ticket</code>，三个参数去获取<code>access_token</code>，<a href="https://work.weixin.qq.com/api/doc#10975/%E8%8E%B7%E5%8F%96%E4%BC%81%E4%B8%9Aaccess_token" target="_blank" rel="noopener">详情</a></li>
+<li>使用上步获取的<code>access_token</code>来获取<code>jsapi_ticket</code>，<a href="https://work.weixin.qq.com/api/doc#10029/%E8%8E%B7%E5%8F%96jsapi_ticket" target="_blank" rel="noopener">详情</a></li>
+<li>使用<code>jsapi_ticket</code>和<code>url</code>和随机字符串和时间戳四个参数，去生成签名，<a href="https://work.weixin.qq.com/api/doc#10029/%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95" target="_blank" rel="noopener">详情</a></li>
+<li>最后返回前端3个参数，即：签名+生成签名的随机字符串+生成签名的时间戳</li>
+</ol>
+<p>前端拿到参数后，进行<code>wx.config</code>配置后就可以愉快地使用wx的api了。</p>
+<h2 id="接口业务代码"><a href="#接口业务代码" class="headerlink" title="接口业务代码"></a>接口业务代码</h2><p>只是示意，没写过后台代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Express = <span class="built_in">require</span>(<span class="string">'express'</span>);</span><br><span class="line"><span class="keyword">const</span> app = Express();</span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">'body-parser'</span>);</span><br><span class="line"><span class="built_in">require</span>(<span class="string">'body-parser-xml'</span>)(bodyParser);</span><br><span class="line"><span class="keyword">const</span> axios = <span class="built_in">require</span>(<span class="string">'axios'</span>);</span><br><span class="line">app.use(bodyParser.xml());</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> ticketCount = <span class="number">0</span>;            <span class="comment">// 推送ticket计数器</span></span><br><span class="line"><span class="keyword">let</span> suite_access_token = <span class="string">''</span>;    <span class="comment">// 全局的suite_access_token，getSuiteAccessToken调用成功后会更新一次</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * getSuiteAccessToken：获取suite_access_token</span></span><br><span class="line"><span class="comment"> * @param:</span></span><br><span class="line"><span class="comment"> *    ticket[string]：由指令接口接收到</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSuiteAccessToken</span>(<span class="params">ticket</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> data = &#123;</span><br><span class="line">		suite_id: <span class="string">'xxx'</span>, <span class="comment">// 固定值</span></span><br><span class="line">		suite_secret: <span class="string">'yyy'</span>, <span class="comment">// 固定值</span></span><br><span class="line">		suite_ticket: ticket</span><br><span class="line">	&#125;;</span><br><span class="line">	axios.post(<span class="string">'https://qyapi.weixin.qq.com/cgi-bin/service/get_suite_token'</span>, data).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">		suite_access_token = result.body.suite_access_token;</span><br><span class="line">		ticketCount = <span class="number">0</span>;</span><br><span class="line">	&#125;).catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">		<span class="built_in">console</span>.log(error);</span><br><span class="line">		<span class="comment">// 获取失败，再次获取</span></span><br><span class="line">		getSuiteAccessToken(ticket);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * getPermanentCode：获取永久授权码</span></span><br><span class="line"><span class="comment"> * @param:</span></span><br><span class="line"><span class="comment"> *    createAuth：临时授权码</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPermanentCode</span>(<span class="params">createAuth</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> data = &#123;<span class="attr">auth_code</span>: createAuth&#125;;</span><br><span class="line">	axios.post(<span class="string">'https://qyapi.weixin.qq.com/cgi-bin/service/get_permanent_code?suite_access_token='</span> + suite_access_token, data).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">		<span class="comment">// 请求永久授权码成功，连接数据库，将企业corpid和永久授权码等信息保存至数据库</span></span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * getAccessToken：根据corpid获取accesstoken</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getAccessToken</span>(<span class="params">corpid</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 同样，获取jsApiTicket的AccessToken也是7200s的有效期，也保存到数据库中</span></span><br><span class="line">	<span class="comment">// 先查询，如果没有，或者过期 就重新执行一次请求accessToken的过程</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">let</span> accessToken = <span class="string">'accessToken'</span>;    <span class="comment">// 查询</span></span><br><span class="line">		<span class="keyword">let</span> accessTokenExpiresTime = <span class="string">'xxx'</span>; <span class="comment">// 查询</span></span><br><span class="line">		<span class="keyword">let</span> isOverdue = <span class="keyword">new</span> Data() - accessTokenExpiresTime &gt; <span class="number">7200</span> * <span class="number">1000</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (accessToken &amp;&amp; !isOverdue) &#123;</span><br><span class="line">			resolve(accessToken);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">let</span> data = &#123;</span><br><span class="line">				auth_corpid: corpid,</span><br><span class="line">				permanent_code: <span class="string">'permanent_code'</span> <span class="comment">// 需要查询</span></span><br><span class="line">			&#125;;</span><br><span class="line">			axios.post(<span class="string">'https://qyapi.weixin.qq.com/cgi-bin/service/get_corp_token?suite_access_token='</span> + suite_access_token, data).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">				resolve(result.data.access_token);</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * getJsApiTicket：获取jsapi ticket</span></span><br><span class="line"><span class="comment"> * @param:</span></span><br><span class="line"><span class="comment"> *    corpid[string]：企业id</span></span><br><span class="line"><span class="comment"> * @return:</span></span><br><span class="line"><span class="comment"> *    ticket[string]：</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getJsApiTicket</span>(<span class="params">corpid</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 一个企业的jsApiTicket保存时间为7200s 获得之后就保存到数据库中，有一个字段jsApiTicketExpiresTime记录一下过期时间</span></span><br><span class="line">	<span class="comment">// 先从数据库中根据corpid取值，如果没有或者过期则重新请求一次</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">		<span class="keyword">let</span> jsApiTicket = <span class="string">'ticket'</span>;                       <span class="comment">// 数据库中查询</span></span><br><span class="line">		<span class="keyword">let</span> jsApiTicketExpiresTime = <span class="string">'xxx'</span>;          <span class="comment">// 数据库中查询</span></span><br><span class="line">		<span class="keyword">let</span> isOverdue = <span class="keyword">new</span> Data() - jsApiTicketExpiresTime &gt; <span class="number">7200</span> * <span class="number">1000</span>;</span><br><span class="line">		<span class="comment">// 没有过期并且存在就使用这个</span></span><br><span class="line">		<span class="keyword">if</span> (jsApiTicket &amp;&amp; !isOverdue) &#123;</span><br><span class="line">			resolve(jsApiTicket);</span><br><span class="line">		&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">let</span> accessToken = <span class="keyword">await</span> getAccessToken();</span><br><span class="line">			axios.get(<span class="string">'https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token='</span> + accessToken).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">				resolve(result.data.ticket);</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * getSign：生成签名算法</span></span><br><span class="line"><span class="comment"> * */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getSign</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 生成签名算法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 校验接口</span></span><br><span class="line">app.get(<span class="string">'/verify'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 创建应用的校验过程</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指令校验接口</span></span><br><span class="line">app.get(<span class="string">'/orderUrl'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 转发到 /verify 接口</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数据校验接口</span></span><br><span class="line">app.get(<span class="string">'/dataUrl'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 转发到 /verify 接口</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 指令接口 可以获取ticket和AuthCode</span></span><br><span class="line">app.post(<span class="string">'/orderUrl'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 获取数据类型</span></span><br><span class="line">	<span class="keyword">let</span> infoType = req.body.InfoType;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (infoType === <span class="string">'create_auth'</span>) &#123;</span><br><span class="line">		<span class="comment">// 企业推送授权信息</span></span><br><span class="line">		<span class="keyword">let</span> authCode = req.body.AuthCode;</span><br><span class="line">		getPermanentCode(authCode);</span><br><span class="line"></span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> (infoType === <span class="string">'suite_ticket'</span>) &#123;</span><br><span class="line">		<span class="comment">// 微信后台推送 ticket</span></span><br><span class="line">		ticketCount++;</span><br><span class="line">		<span class="keyword">if</span> (ticketCount &gt;= <span class="number">10</span>) &#123;</span><br><span class="line">			<span class="comment">// 10min推送一次，计10次，执行一次获取suite_access_token请求</span></span><br><span class="line">			<span class="keyword">let</span> ticket = req.body.SuiteTicket;</span><br><span class="line">			getSuiteAccessToken(ticket);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	res.send(<span class="string">'success'</span>);</span><br><span class="line"></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.get(<span class="string">'/sign'</span>, <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> corpid = req.query.corpid;</span><br><span class="line">	<span class="keyword">let</span> url = req.query.url;</span><br><span class="line">	<span class="keyword">let</span> jsApiTicket = <span class="keyword">await</span> getJsApiTicket(corpid);</span><br><span class="line">	<span class="keyword">let</span> noncestr = <span class="string">'Wm3WZYTPz0wzccnW'</span>; <span class="comment">// 随机生成</span></span><br><span class="line">	<span class="keyword">let</span> timestamp = <span class="number">1414587457</span>; <span class="comment">// 时间戳</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">// 根据4个参数生成签名</span></span><br><span class="line">	<span class="keyword">let</span> sign = getSign(jsApiTicket, url, noncestr, timestamp);</span><br><span class="line"></span><br><span class="line">	res.send(&#123;</span><br><span class="line">		sign,</span><br><span class="line">		noncestr,</span><br><span class="line">		timestamp</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">app.listen(<span class="string">'8001'</span>);</span><br></pre></td></tr></table></figure></p>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2018/03/14/企业微信第三方应用配置/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>

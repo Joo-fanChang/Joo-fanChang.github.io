@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>a标签的download下载 兼容firefox | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/archives">archive</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2018/03/28/使用a标签的download下载/">a标签的download下载 兼容firefox</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">March 28 2018</p>
+  </section>
+
+  <section class="article-entry">
+    <h1 id="使用a标签的download属性下载"><a href="#使用a标签的download属性下载" class="headerlink" title="使用a标签的download属性下载"></a>使用a标签的download属性下载</h1><p>download是H5新增的属性，目前只有chrome和firefox支持，该属性表示是一个下载链接，并且属性值会作为文件名称，其中文件名可以带扩展名，也可以不带，如果不带则由浏览器自动识别。</p>
+<p>href是要下载文件的链接，除了文件的绝对路径外，还可以使用base64和bolb等格式</p>
+<p>可以封装成一个函数<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">download</span>(<span class="params">filename, href</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">    a.setAtrribute(<span class="string">'href'</span>, href);</span><br><span class="line">    a.setAtrribute(<span class="string">'download'</span>, filename);</span><br><span class="line">    a.click();</span><br><span class="line">    a = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样只需要传进来文件名称和路径就可以了。在chrome下是没有问题的，但是在firefox下是没有反应的</p>
+<p>这个时候只需要把a标签插入到页面中就可以了</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">download</span>(<span class="params">filename, href</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">    a.setAtrribute(<span class="string">'href'</span>, href);</span><br><span class="line">    a.setAtrribute(<span class="string">'download'</span>, filename);</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(a);</span><br><span class="line">    a.click();</span><br><span class="line">    <span class="built_in">document</span>.body.removeChild(a);</span><br><span class="line">    a = <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2018/03/28/使用a标签的download下载/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>

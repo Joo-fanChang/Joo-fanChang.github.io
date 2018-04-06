@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>post提交的Content-Type | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/archives">archive</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2018/03/15/post提交的Content-Type/">post提交的Content-Type</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">March 15 2018</p>
+  </section>
+
+  <section class="article-entry">
+    <p><code>jQuery.ajax</code>的<code>post</code>提交默认的请求头的<code>Content-Type:  application/x-www-form-urlencoded</code><br>而<code>axios.post</code>提交的请求头是<code>Content-Type: application/json</code>。</p>
+<p><code>application/json</code>是一个趋势，但是如果改一个旧项目，把<code>jQuery.ajax</code>全部换成<code>axios.post</code>时，需要对请求做一些配置。</p>
+<p>改之前的代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 没有指定请求头的content-type</span></span><br><span class="line"><span class="keyword">var</span> data = &#123;<span class="attr">age</span>: <span class="number">18</span>&#125;;</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">	url: <span class="string">''</span>,</span><br><span class="line">	type: <span class="string">'POST'</span>,</span><br><span class="line">	data: data</span><br><span class="line">	dataType: <span class="string">'json'</span>,</span><br><span class="line">	success: <span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">		<span class="comment">// do something</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>axios</code>的代码<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">'axios'</span>;</span><br><span class="line"><span class="keyword">import</span> qs <span class="keyword">from</span> <span class="string">'qs'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> data = &#123;<span class="attr">age</span>: <span class="number">18</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> url = <span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">axios.post(</span><br><span class="line">	url,</span><br><span class="line">	qs.stringify(data),</span><br><span class="line">	&#123;<span class="attr">headers</span>: &#123;<span class="string">'Content-Type'</span>: <span class="string">'application/x-www-form-urlencoded'</span>&#125;&#125;</span><br><span class="line">).then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">	<span class="comment">// do something</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2018/03/15/post提交的Content-Type/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>
