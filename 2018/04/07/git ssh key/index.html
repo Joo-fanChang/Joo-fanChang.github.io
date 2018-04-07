@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>git ssh key | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/archives">archive</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2018/04/07/git ssh key/">git ssh key</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">April 07 2018</p>
+  </section>
+
+  <section class="article-entry">
+    <p>在使用ssh key之前先要确保电脑上有生成的ssh key。没有的话就生成一个，如果有的话就直接将公钥放到<code>github</code>或者<code>gitlab</code>上</p>
+<h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><p>如果使用<code>windows</code>系统自带的<code>cmd</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span> %userprofile%\.ssh\id_rsa.pub</span><br></pre></td></tr></table></figure></p>
+<p>如果使用<code>git bash</code>工具或者<code>macOS</code>或者<code>powershell</code>的话<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure></p>
+<p>如果有的话就是这个样子的</p>
+<img src="/2018/04/07/git%20ssh%20key/git01.png">
+<p>其中以<code>ssh-rsa</code>开头，以创建ssh key的邮箱结尾</p>
+<p>如果电脑中已经有的话，可以跳过生成过程，直接到使用，没有的话就看生成的过程</p>
+<h2 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h2><p>windows系统建议使用git bash，macOS就随意<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"changzhn@yonyou.com"</span> -b 4096</span><br></pre></td></tr></table></figure></p>
+<p>这个邮箱要替换成自己的邮箱</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><img src="/2018/04/07/git%20ssh%20key/git02.png">
+<p>无论是github还是gitlab都可以在settings的ssh key选项中找到上面这个选项，直接将自己的ssh key复制进去就可以了</p>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2018/04/07/git ssh key/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>
