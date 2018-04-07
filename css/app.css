@@ -92,14 +92,6 @@ img.emoji {
     font-size: .9rem;
     color: #EB298C;
     padding-bottom: 15px; }
-  .app-header .social-list {
-    margin: 0;
-    margin-top: 15px;
-    padding: 0;
-    list-style: none; }
-  .app-header .social-list a {
-    color: #5badf0;
-    padding: 8px 12px; }
 
 main.index {
   max-width: 700px;
@@ -213,6 +205,16 @@ main.post {
     font-style: italic; }
   .app-footer a {
     color: #666; }
+  .app-footer .social-list {
+    margin: 0;
+    margin-top: 15px;
+    padding: 0;
+    list-style: none;
+    margin-bottom: 30px; }
+  .app-footer .social-list a {
+    color: #5badf0;
+    padding: 8px 12px;
+    font-size: 18px; }
 
 .page {
   max-width: 700px;
