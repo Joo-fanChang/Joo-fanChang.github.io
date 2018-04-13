@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>form</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            .item {
+                width: 400px;
+                background: #ccc;
+                margin-bottom: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <div class="container">
+            <div class="form-wrap">
+
+            </div>
+            <button id="addOne">添加</button>
+        </div>
+
+        <script id="form-temp" type="text/html">
+            {{each $data}}
+                <div class="item">
+                    <form>
+                        <input type="text" placeholder="请输入名称" value="{{$value.name}}" class="name" {{if $value.hasSave}}readonly{{/if}}>
+                        <input type="text" placeholder="请输入电话" value="{{$value.tel}}" class="tel" {{if $value.hasSave}}readonly{{/if}}>
+                    </form>
+
+                    {{if $value.hasSave}}
+                        <button class="modify" data-idx="{{$index}}">修改</button>
+                    {{else}}
+
+                    {{if $value.isDefault}}
+                        <button class="removeDefault" data-idx="{{$index}}">取消默认</button>
+                    {{else}}
+                        <button class="setDefault" data-idx="{{$index}}">设置为默认</button>
+                    {{/if}}
+
+                        <button class="save" data-idx="{{$index}}">保存</button>
+                    {{/if}}
+                </div>
+            {{/each}}
+           
+        </script>
+
+        <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+        <script src="./template-web.js"></script>
+        <script>
+            $(function() {
+                var $forms = $('.form-wrap'); // form的容器
+                var $addOne = $('#addOne');   // 添加一个
+
+                var a = []; // a数组中保存着所有form表单的信息，里面每一项为一个对象 
+                // 一个示例对象
+                var exp = {
+                    id: Math.random() + Date.now(),
+                    name: '', 
+                    tel: '', // 前两个为表单的内容
+                    hasSave: false, // 是否已保存
+                    isDefault: false // 是否设为默认
+                };
+
+                a.push(exp);
+                render();
+
+                // 渲染视图
+                function render() {
+                    var html = template('form-temp', a); // 初次渲染页面
+                    $forms.html(html);
+                    bindEvent();
+                }
+
+                // 绑定事件 
+                function bindEvent() {
+                    // 保存
+                    $('.save').on('click', function() {
+                        var idx = $(this).data('idx');
+                        // 根据索引去a数组中获取得保存的对象
+                        var o = a[idx];
+
+                        var name = $('.item').eq(idx).find('.name').val();
+                        var tel = $('.item').eq(idx).find('.tel').val();
+
+                        // 同样需要根据索引 去input中取值保存到对象中
+                        o.name = name;
+                        o.tel = tel;
+
+                        console.log('将要保存的数据', o);
+
+                        // 发送ajax等请求，成功后，将a数组中的状态改变
+                        o.hasSave = true;
+                        render();
+                    });
+
+                    // -----------------------------------------------------------------
+                    // 修改
+                    $('.modify').on('click', function() {
+                        var idx = $(this).data('idx');
+                        var o = a[idx];
+                        o.hasSave = false;
+                        render();
+                    });
+
+
+                    // -----------------------------------------------------------------
+                    // 设置为默认
+                    $('.setDefault').on('click', function() {
+                        var idx = $(this).data('idx');
+                        
+                        // 设置默认只能是一个
+                        a.map(function(item, index) {
+                            if (index == idx) {
+                                item.isDefault = true;
+                            } else {
+                                item.isDefault = false;
+                            }
+                            return item;
+                        });
+                        render();
+                    });
+
+                    // -----------------------------------------------------------------
+                    // 取消默认
+                    $('.removeDefault').on('click', function() {
+                        var idx = $(this).data('idx');
+                        var o = a[idx];
+                        o.isDefault = false;
+                        render();
+                    })
+                }
+
+                // 添加一项
+                $addOne.on('click', function() {
+                    a.push({
+                        name: '',
+                        tel: '',
+                        hasSave: false,
+                        isDefault: false
+                    });
+                    render();
+                });
+
+
+
+            })
+        </script>
+    </body>
+</html>
