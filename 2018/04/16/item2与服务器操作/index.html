@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>item2与服务器操作 | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/./categories/web">web</a>
+    
+  
+    
+      <a href="/./categories/微信">微信</a>
+    
+  
+    
+      <a href="/./categories/git">git</a>
+    
+  
+    
+      <a href="/./categories/服务端">服务端</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2018/04/16/item2与服务器操作/">item2与服务器操作</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">April 16 2018</p>
+  </section>
+
+  <section class="article-entry">
+    <p>要实现的内容：</p>
+<ul>
+<li>mac下使用item2工具与服务器连接</li>
+<li>免密登录服务器</li>
+<li>使用item2与服务器互传文件</li>
+</ul>
+<h2 id="mac下使用item2工具与服务器连接"><a href="#mac下使用item2工具与服务器连接" class="headerlink" title="mac下使用item2工具与服务器连接"></a>mac下使用item2工具与服务器连接</h2><p>mac下可以使用命令行直接与服务器连接。基本使用是<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@ip</span><br></pre></td></tr></table></figure></p>
+<p>如果地址没有写错的话，会显示输入密码，正确输入密码，然后愉快地连接上了服务器</p>
+<p>如果是第一次连接的话会出现<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">　　The authenticity of host <span class="string">'host (12.18.429.21)'</span> can<span class="string">'t be established.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">　　RSA key fingerprint is 98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">　　Are you sure you want to continue connecting (yes/no)?</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>这段话的意思是，无法确认host主机的真实性，只知道它的公钥指纹，问你还想继续连接吗？</p>
+</blockquote>
+<blockquote>
+<p>所谓”公钥指纹”，是指公钥长度较长（这里采用RSA算法，长达1024位），很难比对，所以对其进行MD5计算，将它变成一个128位的指纹。上例中是98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d，再进行比较，就容易多了。</p>
+</blockquote>
+<blockquote>
+<p>很自然的一个问题就是，用户怎么知道远程主机的公钥指纹应该是多少？回答是没有好办法，远程主机必须在自己的网站上贴出公钥指纹，以便用户自行核对。</p>
+</blockquote>
+<blockquote>
+<p>假定经过风险衡量以后，用户决定接受这个远程主机的公钥。</p>
+</blockquote>
+<p>然后打出<code>yes</code>，才会到输入密码的步骤</p>
+<p>来自<a href="http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html" target="_blank" rel="noopener">阮一峰的博客</a></p>
+<p>如果经常登录服务器的话，可以在 item2 -&gt; 偏好设置 -&gt; profiles 设置服务器信息</p>
+<img src="/2018/04/16/item2与服务器操作/item2-01.png">
+<p>下次使用的话就可以直接快捷键打开一个item2窗口来连接服务器</p>
+<h2 id="免密登录服务器"><a href="#免密登录服务器" class="headerlink" title="免密登录服务器"></a>免密登录服务器</h2><p>每次登录都是很麻烦的。可以利用的ssh的公钥和私钥系统，将本地的公钥上传服务器。下次登录的时候就可以免密了。</p>
+<p>因为我本地有配置git的时候公钥，直接将这个id_rsa.pub上传到服务器<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id -i ~/.ssh/id_rsa.pub root@id</span><br></pre></td></tr></table></figure></p>
+<p>过程有一个输入密码的过程，输入密码后，上传成功，之后就可以愉快的免密连接服务器了。</p>
+<h2 id="使用item2与服务器互传文件"><a href="#使用item2与服务器互传文件" class="headerlink" title="使用item2与服务器互传文件"></a>使用item2与服务器互传文件</h2><p>需要借助 <code>scp</code> 命令<br>主要有4个</p>
+<ol>
+<li><p>上传文件至服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp 文件名 root@ip:目标路径</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上传文件夹至服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp -r 文件夹名称 root@ip:目标路径</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从服务器下载文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp root@ip:文件路径 本地路径</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从服务器上下载文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp root@ip:文件夹路径 本地路径</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>放一张下载的图感受一下</p>
+<img src="/2018/04/16/item2与服务器操作/item2-02.png">
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2018/04/16/item2与服务器操作/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>
