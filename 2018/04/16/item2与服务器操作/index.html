@@ -60,16 +60,7 @@
 <p>如果地址没有写错的话，会显示输入密码，正确输入密码，然后愉快地连接上了服务器</p>
 <p>如果是第一次连接的话会出现<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">　　The authenticity of host <span class="string">'host (12.18.429.21)'</span> can<span class="string">'t be established.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">　　RSA key fingerprint is 98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">　　Are you sure you want to continue connecting (yes/no)?</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>这段话的意思是，无法确认host主机的真实性，只知道它的公钥指纹，问你还想继续连接吗？</p>
-</blockquote>
-<blockquote>
-<p>所谓”公钥指纹”，是指公钥长度较长（这里采用RSA算法，长达1024位），很难比对，所以对其进行MD5计算，将它变成一个128位的指纹。上例中是98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d，再进行比较，就容易多了。</p>
-</blockquote>
-<blockquote>
-<p>很自然的一个问题就是，用户怎么知道远程主机的公钥指纹应该是多少？回答是没有好办法，远程主机必须在自己的网站上贴出公钥指纹，以便用户自行核对。</p>
-</blockquote>
-<blockquote>
-<p>假定经过风险衡量以后，用户决定接受这个远程主机的公钥。</p>
+<p>这段话的意思是，无法确认host主机的真实性，只知道它的公钥指纹，问你还想继续连接吗？<br>所谓”公钥指纹”，是指公钥长度较长（这里采用RSA算法，长达1024位），很难比对，所以对其进行MD5计算，将它变成一个128位的指纹。上例中是98:2e:d7:e0:de:9f:ac:67:28:c2:42:2d:37:16:58:4d，再进行比较，就容易多了。<br>很自然的一个问题就是，用户怎么知道远程主机的公钥指纹应该是多少？回答是没有好办法，远程主机必须在自己的网站上贴出公钥指纹，以便用户自行核对。<br>假定经过风险衡量以后，用户决定接受这个远程主机的公钥。</p>
 </blockquote>
 <p>然后打出<code>yes</code>，才会到输入密码的步骤</p>
 <p>来自<a href="http://www.ruanyifeng.com/blog/2011/12/ssh_remote_login.html" target="_blank" rel="noopener">阮一峰的博客</a></p>
