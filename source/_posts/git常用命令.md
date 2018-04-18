@@ -3,7 +3,7 @@ layout: post
 title: git常用命令
 date: 2018-04-04 08:47:34
 tags: git 版本管理工具
-categories: web
+categories: git
 ---
 ## 4 代码管理工具
 
@@ -58,3 +58,5 @@ categories: web
 比如现在将代码推到过程，后来发现这真是一次垃圾的提交，在本地使用代码回退上一个版本的时候，想再`push`上去，这个时候发现是推不上去的。
 - `git push origin master -f`
 可以使用`-f`来暴力提交
+
+所以提交的操作还是需要很谨慎的
