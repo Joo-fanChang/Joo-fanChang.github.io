@@ -60,6 +60,9 @@
 </li>
 </ul>
 <p>同样使用上面的命令将<code>npm</code>和<code>npx</code>也进行全局配置</p>
+<p>这样配置完后有个特别坑的地方，就是所有全局安装的包命令全不可用</p>
+<p>需要在<code>/etc/profile</code>的最后加上两行代码<br>需要注意的是这个文件是个只读文件，需要修改一下只读属性<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> NODE_HOME=/usr/node/node-v8.11.1-linux-x64/bin</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$NODE_HOME</span>:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></p>
+<p>添加完成后重启，就可以愉快地使用全局命令了</p>
 
   </section>
 </article>
