@@ -8,6 +8,8 @@ categories: web
 持续更新...
 最后更新时间2018.4.17
 
+# webpack(4)
+
 ## 1 配置分离
 项目过大的时候，配置文件最好是分离开来。导出`webpack`配置的时候，需要使用`webpack-merge`这个包。
 比如
@@ -62,8 +64,76 @@ publicPath: 'build'
 boolean
 一切服务都启用`gzip压缩`
 测试：
-||大小|
-|:-|:-|
+|文件|大小|
+| :--: | :--: |
 |未压缩|337k|
 |压缩|86.4k|
 
+
+## 4 resolve
+### 4.1 alias
+提供了一些引入模板的简写名称，比如：
+想引入的文件不想使用`../` 和 `../../`之类的，都可以从`src`为起始目录往下寻找
+``` js
+resolve: {
+    alias: {
+        '@': path.resolve(__dirname, '../src')
+    }
+}
+```
+在引入模块的时候
+``` js
+import '@/assets/common.less'
+```
+
+### 4.2 extensions
+设置模块可省略的后缀名称，比如：
+上面引入模块可以改成这样
+``` js
+import '@/assets/common'
+```
+
+如果两个模板重名的话，应该就需要加上后缀了
+``` js
+import '@/assets/common.css';
+import '@/assets/common.less';
+```
+
+## 5 module
+webpack默认只能解析`js`模块的，所以前端资源的`css` `less` `jsx` `png`等等都需要`loader`实现的 
+
+### 5.1 rules css
+``` js
+module: {
+    rules: [
+        {
+            test: /\.css$/,
+            use: [
+                'style-loader',
+                {
+                    loader: 'css-loader'
+                }
+            ]
+        }
+    ]
+}
+```
+
+增加`postcss-loader`配置`autoprefixer`
+
+其中有几点注意的地方：
+- 解析出来的css会内嵌到页面中，如果想提取出来，需要使用loader做不了，但是plugin可以完成的
+- use是一个数组，里面可以直接写`style-loader`这样，或者以对象形式，具体配置一些`options`一些选项
+- 比如要处理的`less`文件，只需要`less-loader`是不可以的。需要同时使用`style-loader` 和 `css-loader`，就是需要一级级处理，一个`loader`只做自己的事情，做完后交给下一个`loader`来处理。 TIPS：使用`less-loader`也需要安装`less`模块
+
+`use`的格式
+- 字符串
+- 数组
+- 对象
+
+### 5.3 rules url-loader
+关于`url-loader`和`file-loader`：
+- `url-loader`是基于`file-loader`的一层封装，可以做一些图片大小限制，小于多少`kb`时，可以将图片转成`base64`内嵌到页面中，而减少一次`http`请求
+- `url-loader`是依赖于`file-loader`的，所以使用`url-loader`的话，就必须安装`file-loader`的，否则会报错
+
+同样地，可以使用`url-loader`处理图标字体
