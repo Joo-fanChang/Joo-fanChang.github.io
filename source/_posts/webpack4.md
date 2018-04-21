@@ -26,8 +26,8 @@ categories: web
 ``` js
 entry: './src/main.js',
 output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+	path: path.resolve(__dirname, 'dist'),
+	filename: 'bundle.js'
 }
 ```
 也就是说，如果在一个项目目录中没有任何配置的话，直接运行`webpack`也是可以的。
@@ -76,9 +76,9 @@ boolean
 想引入的文件不想使用`../` 和 `../../`之类的，都可以从`src`为起始目录往下寻找
 ``` js
 resolve: {
-    alias: {
-        '@': path.resolve(__dirname, '../src')
-    }
+	alias: {
+		'@': path.resolve(__dirname, '../src')
+	}
 }
 ```
 在引入模块的时候
@@ -105,17 +105,17 @@ webpack默认只能解析`js`模块的，所以前端资源的`css` `less` `jsx`
 ### 5.1 rules css
 ``` js
 module: {
-    rules: [
-        {
-            test: /\.css$/,
-            use: [
-                'style-loader',
-                {
-                    loader: 'css-loader'
-                }
-            ]
-        }
-    ]
+	rules: [
+		{
+			test: /\.css$/,
+			use: [
+				'style-loader',
+				{
+					loader: 'css-loader'
+				}
+			]
+		}
+	]
 }
 ```
 
@@ -137,3 +137,30 @@ module: {
 - `url-loader`是依赖于`file-loader`的，所以使用`url-loader`的话，就必须安装`file-loader`的，否则会报错
 
 同样地，可以使用`url-loader`处理图标字体
+
+
+## 6 devtool
+
+使用`source-map`的方式
+
+一般在开发环境使用`#eval-source-map`
+在生产环境使用`#cheap-module-source-amp`
+
+具体打包速度等可以参考[官网](https://doc.webpack-china.org/configuration/devtool/)
+
+## 7 plugins
+
+## 7.1 html-webpack-plugin
+
+如果`output.file`中使用了`hash`。又不想在`index.html`手动引入`js`文件，可以借助插件来完成。
+在根目录下提供一个模板文件，然后可以设置`title` `favicon`等属性。
+
+## 7.2 extract-text-webpack-plugin@next
+
+提取css文件。
+
+**TIPS:**
+在`webpack4`中需要使用`extract-text-webpack-plugin@next`否则会报一个错
+``` bash
+Error: Chunk.entrypoints: Use Chunks.groupsIterable and filter by instanceof Entrypoint instead
+```
