@@ -51,20 +51,17 @@
 
   <section class="article-entry">
     <ol>
-<li>
-<p>将配置文件导出
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run eject</span><br></pre></td></tr></table></figure></p>
+<li><p>将配置文件导出</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run eject</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>打包的静态资源路径
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在config -&gt; path.js -&gt; 36 line位置</span></span><br><span class="line"><span class="keyword">const</span> servedUrl =</span><br><span class="line">envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : <span class="string">'./'</span>);</span><br></pre></td></tr></table></figure></p>
+<li><p>打包的静态资源路径</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在config -&gt; path.js -&gt; 36 line位置</span></span><br><span class="line"><span class="keyword">const</span> servedUrl =</span><br><span class="line">envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : <span class="string">'./'</span>);</span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>在create-react-app中配置了less，然后在引入的时候，会报一个<code>Inline JavaScript is not enabled. Is it set in your options?</code>的错，这个时候需要
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    loader: <span class="built_in">require</span>.resolve(<span class="string">'less-loader'</span>),</span><br><span class="line">    options: &#123; <span class="attr">javascriptEnabled</span>: <span class="literal">true</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<li><p>在create-react-app中配置了less，然后在引入的时候，会报一个<code>Inline JavaScript is not enabled. Is it set in your options?</code>的错，这个时候需要</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    loader: <span class="built_in">require</span>.resolve(<span class="string">'less-loader'</span>),</span><br><span class="line">    options: &#123; <span class="attr">javascriptEnabled</span>: <span class="literal">true</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<p>持续更新...</p>
+<p>持续更新…</p>
 
   </section>
 </article>
