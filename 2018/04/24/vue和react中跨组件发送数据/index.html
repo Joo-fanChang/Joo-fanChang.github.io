@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>vue和react中跨组件发送数据 | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/./categories/web">web</a>
+    
+  
+    
+      <a href="/./categories/微信">微信</a>
+    
+  
+    
+      <a href="/./categories/git">git</a>
+    
+  
+    
+      <a href="/./categories/服务端">服务端</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2018/04/24/vue和react中跨组件发送数据/">vue和react中跨组件发送数据</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">April 24 2018</p>
+  </section>
+
+  <section class="article-entry">
+    <p>vue和react都可以通过<code>props</code>来向子组件传递数据，或者回调函数，也都可以通过回调函数来拿到子组件的数据。<br>如果层次过多，就可以使用下面的方法。<br>因为只是演示，数据只在父子两层组件中传递，而不写过深的组件。<br>而且是不带<code>vuex</code>和<code>redux</code>两个状态管理库。</p>
+<h2 id="1-子-gt-父"><a href="#1-子-gt-父" class="headerlink" title="1 子 -&gt; 父"></a>1 子 -&gt; 父</h2><h3 id="1-1-react-gt-发布-订阅"><a href="#1-1-react-gt-发布-订阅" class="headerlink" title="1.1 react -&gt; 发布-订阅"></a>1.1 react -&gt; 发布-订阅</h3><p>或者组件没有嵌套关系的也同样适用。<br>使用node的<code>events</code>模块，使用影响全局机制去做。发布订阅事件。</p>
+<p>单独写一个模块：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;EventEmitter&#125; <span class="keyword">from</span> <span class="string">'events'</span></span><br><span class="line"><span class="keyword">let</span> emitter = <span class="keyword">new</span> EventEmitter();</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> emitter;</span><br></pre></td></tr></table></figure></p>
+<p>在子组件中发布事件<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> emitter <span class="keyword">from</span> <span class="string">'./events'</span></span><br><span class="line">handleClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    emitter.emit(<span class="string">'something'</span>, &#123;<span class="attr">msg</span>: <span class="string">'发布事件'</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在父组件中<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> emitter <span class="keyword">from</span> <span class="string">'./events'</span></span><br><span class="line"></span><br><span class="line">componentDidMount() &#123;</span><br><span class="line">    <span class="keyword">this</span>.xx = emitter.addListener(<span class="string">'something'</span>, payload =&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(payload)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">componentWillUnmount() &#123;</span><br><span class="line">    emitter.removeListener(<span class="keyword">this</span>.xx)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="1-2-vue-gt-发布-订阅"><a href="#1-2-vue-gt-发布-订阅" class="headerlink" title="1.2 vue -&gt; 发布-订阅"></a>1.2 vue -&gt; 发布-订阅</h3><p>vue可以同样使用这个机制来发送数据</p>
+<p>vue除了可以使用<code>node</code>模块外，还自带了一个事件订阅-发布机制</p>
+<p>单独写一个模块<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vue()</span><br></pre></td></tr></table></figure></p>
+<p>子组件中<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Hub <span class="keyword">from</span> <span class="string">'./events'</span></span><br><span class="line"></span><br><span class="line">handleClick() &#123;</span><br><span class="line">    Hub.$emit(<span class="string">'something'</span>, &#123;<span class="attr">msg</span>: <span class="string">'发布事件'</span>&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在父组件中<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">created() &#123;</span><br><span class="line">    Hub.$on(<span class="string">'something'</span>, payload =&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(payload)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">beforeDestory() &#123;</span><br><span class="line">    Hub.$off(<span class="string">'something'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="2-父-gt-子"><a href="#2-父-gt-子" class="headerlink" title="2 父 -&gt; 子"></a>2 父 -&gt; 子</h2><h3 id="2-1-react-gt-context"><a href="#2-1-react-gt-context" class="headerlink" title="2.1 react -&gt; context"></a>2.1 react -&gt; context</h3><p>SuperType<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Super</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> childContextTypes = &#123;</span><br><span class="line">        name: PropTypes.string</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    getChildContext() &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            name: <span class="string">'changzhn'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>SubType<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SubType</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> contextTypes = &#123;</span><br><span class="line">        name: PropTypes.string</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;&#123;<span class="keyword">this</span>.context.name&#125;&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>建议使用 <code>high-order componet</code>高阶组件</p>
+<h2 id="2-2-vue-dispatch-broadcast"><a href="#2-2-vue-dispatch-broadcast" class="headerlink" title="2.2 vue $dispatch $broadcast"></a>2.2 vue $dispatch $broadcast</h2><blockquote>
+<p>$dispatch 和 $broadcast 已经被弃用。请使用更多简明清晰的组件间通信和更好的状态管理方案，如：Vuex。</p>
+</blockquote>
+<p>官方已经废弃了。建议使用<code>vuex</code>或者<code>Hub</code>形式。</p>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2018/04/24/vue和react中跨组件发送数据/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>
