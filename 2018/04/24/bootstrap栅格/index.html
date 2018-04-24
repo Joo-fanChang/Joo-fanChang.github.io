@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>bootstrap栅格 | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/./categories/web">web</a>
+    
+  
+    
+      <a href="/./categories/微信">微信</a>
+    
+  
+    
+      <a href="/./categories/git">git</a>
+    
+  
+    
+      <a href="/./categories/服务端">服务端</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2018/04/24/bootstrap栅格/">bootstrap栅格</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">April 24 2018</p>
+  </section>
+
+  <section class="article-entry">
+    <h2 id="栅格"><a href="#栅格" class="headerlink" title="栅格"></a>栅格</h2><p>bootstrap的栅格使用了12份栅格系统。现在其他UI框架都在使用24栅格系统。</p>
+<h2 id="bootstrap-css源码"><a href="#bootstrap-css源码" class="headerlink" title="bootstrap.css源码"></a>bootstrap.css源码</h2><h3 id="container"><a href="#container" class="headerlink" title=".container"></a>.container</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">padding-right</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">padding-left</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">margin-right</span>: auto;</span><br><span class="line">  <span class="attribute">margin-left</span>: auto;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">media</span> (min-width: <span class="number">576px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">540px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">media</span> (min-width: <span class="number">768px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">720px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">media</span> (min-width: <span class="number">992px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">960px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="keyword">media</span> (min-width: <span class="number">1200px</span>) &#123;</span><br><span class="line">  <span class="selector-class">.container</span> &#123;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">1140px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.container-fluid</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">padding-right</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">padding-left</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">margin-right</span>: auto;</span><br><span class="line">  <span class="attribute">margin-left</span>: auto;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>栅格系统是包裹在类名为<code>container</code>或者<code>container-fluid</code>的容器内，上面的代码是对容器的样式。</p>
+<ul>
+<li><code>container</code> 根据屏幕的不同有固定的宽度 两端永远是有<code>margin</code> 但是宽度小于<code>576px</code>时就是<code>100%</code> 页面宽度的变化使用了媒体查询<br>  将屏幕分为了 0 - 576px - 768px - 992px - 1200px</li>
+<li><code>container-fluid</code> 宽度永远是屏幕的<code>100%</code></li>
+</ul>
+<p><strong>TIPS</strong><br>两种类名不允许互相嵌套</p>
+<h2 id="row"><a href="#row" class="headerlink" title=".row"></a>.row</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.row</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: -ms-flexbox;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">-ms-flex-wrap</span>: wrap;</span><br><span class="line">  <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line">  <span class="attribute">margin-right</span>: -<span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">margin-left</span>: -<span class="number">15px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.no-gutters</span> &#123;</span><br><span class="line">  <span class="attribute">margin-right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">margin-left</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.no-gutters</span> &gt; <span class="selector-class">.col</span>,</span><br><span class="line"><span class="selector-class">.no-gutters</span> &gt; <span class="selector-attr">[class*="col-"]</span> &#123;</span><br><span class="line">  <span class="attribute">padding-right</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">padding-left</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>使用了<code>flex</code>布局</li>
+<li>使用了左右<code>margin</code>为负值，这样就使得<code>row</code>和<code>container</code>的宽度一样</li>
+<li>子项在必要时换行</li>
+<li>同时加上<code>no-gutters</code>类名时，就使<code>margin</code>值正常，此时<code>row</code>就比<code>container</code>宽度短<code>30px</code> 这样做的原因是不让<code>col</code>靠近屏幕边缘避裸奔</li>
+</ol>
+<h3 id="col"><a href="#col" class="headerlink" title=".col"></a>.col</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.col-1</span>, <span class="selector-class">.col-2</span>, <span class="selector-class">.col-3</span>, <span class="selector-class">.col-4</span>, <span class="selector-class">.col-5</span>, <span class="selector-class">.col-6</span>, <span class="selector-class">.col-7</span>, <span class="selector-class">.col-8</span>, <span class="selector-class">.col-9</span>, <span class="selector-class">.col-10</span>, <span class="selector-class">.col-11</span>, <span class="selector-class">.col-12</span>, <span class="selector-class">.col</span>,</span><br><span class="line"><span class="selector-class">.col-auto</span>, <span class="selector-class">.col-sm-1</span>, <span class="selector-class">.col-sm-2</span>, <span class="selector-class">.col-sm-3</span>, <span class="selector-class">.col-sm-4</span>, <span class="selector-class">.col-sm-5</span>, <span class="selector-class">.col-sm-6</span>, <span class="selector-class">.col-sm-7</span>, <span class="selector-class">.col-sm-8</span>, <span class="selector-class">.col-sm-9</span>, <span class="selector-class">.col-sm-10</span>, <span class="selector-class">.col-sm-11</span>, <span class="selector-class">.col-sm-12</span>, <span class="selector-class">.col-sm</span>,</span><br><span class="line"><span class="selector-class">.col-sm-auto</span>, <span class="selector-class">.col-md-1</span>, <span class="selector-class">.col-md-2</span>, <span class="selector-class">.col-md-3</span>, <span class="selector-class">.col-md-4</span>, <span class="selector-class">.col-md-5</span>, <span class="selector-class">.col-md-6</span>, <span class="selector-class">.col-md-7</span>, <span class="selector-class">.col-md-8</span>, <span class="selector-class">.col-md-9</span>, <span class="selector-class">.col-md-10</span>, <span class="selector-class">.col-md-11</span>, <span class="selector-class">.col-md-12</span>, <span class="selector-class">.col-md</span>,</span><br><span class="line"><span class="selector-class">.col-md-auto</span>, <span class="selector-class">.col-lg-1</span>, <span class="selector-class">.col-lg-2</span>, <span class="selector-class">.col-lg-3</span>, <span class="selector-class">.col-lg-4</span>, <span class="selector-class">.col-lg-5</span>, <span class="selector-class">.col-lg-6</span>, <span class="selector-class">.col-lg-7</span>, <span class="selector-class">.col-lg-8</span>, <span class="selector-class">.col-lg-9</span>, <span class="selector-class">.col-lg-10</span>, <span class="selector-class">.col-lg-11</span>, <span class="selector-class">.col-lg-12</span>, <span class="selector-class">.col-lg</span>,</span><br><span class="line"><span class="selector-class">.col-lg-auto</span>, <span class="selector-class">.col-xl-1</span>, <span class="selector-class">.col-xl-2</span>, <span class="selector-class">.col-xl-3</span>, <span class="selector-class">.col-xl-4</span>, <span class="selector-class">.col-xl-5</span>, <span class="selector-class">.col-xl-6</span>, <span class="selector-class">.col-xl-7</span>, <span class="selector-class">.col-xl-8</span>, <span class="selector-class">.col-xl-9</span>, <span class="selector-class">.col-xl-10</span>, <span class="selector-class">.col-xl-11</span>, <span class="selector-class">.col-xl-12</span>, <span class="selector-class">.col-xl</span>,</span><br><span class="line"><span class="selector-class">.col-xl-auto</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: relative;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">min-height</span>: <span class="number">1px</span>;</span><br><span class="line">  <span class="attribute">padding-right</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">padding-left</span>: <span class="number">15px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>给所有的<code>col</code>类名增加了左右<code>padding</code>为15px，也就是两个相邻的<code>col</code>会有<code>30px</code>的<code>padding</code><br> 如果给<code>row</code>加上了<code>no-gutters</code>类名，就取消了<code>col</code>的<code>padding</code></li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.col</span> &#123;</span><br><span class="line">  <span class="attribute">-ms-flex-preferred-size</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">flex-basis</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">-ms-flex-positive</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">100%</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.col-1</span> &#123;</span><br><span class="line">  <span class="attribute">-ms-flex</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">8.333333%</span>;</span><br><span class="line">  <span class="attribute">flex</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">8.333333%</span>;</span><br><span class="line">  <span class="attribute">max-width</span>: <span class="number">8.333333%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。</li>
+</ol>
+<p>待续。。</p>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2018/04/24/bootstrap栅格/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>
