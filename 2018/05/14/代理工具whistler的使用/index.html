@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>代理工具whistler的使用 | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/./categories/web">web</a>
+    
+  
+    
+      <a href="/./categories/微信">微信</a>
+    
+  
+    
+      <a href="/./categories/git">git</a>
+    
+  
+    
+      <a href="/./categories/服务端">服务端</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2018/05/14/代理工具whistler的使用/">代理工具whistler的使用</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">May 14 2018</p>
+  </section>
+
+  <section class="article-entry">
+    <h2 id="为什么是whistler"><a href="#为什么是whistler" class="headerlink" title="为什么是whistler"></a>为什么是whistler</h2><p>在windows系统上常用的工具是<code>fiddler</code>，在mac上常用的工具是<code>charles</code>。<code>fiddler</code>收不收费就不知道了，反正<code>charles</code>是收费滴。</p>
+<p>反观<code>whistler</code>只是一个<code>node</code>包，在任何系统上是任意运行的。</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ol>
+<li><p>使用<code>npm</code>全局安装<code>whistler</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i whistler -g</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下载后可以在命令行里自带几个命令，常用的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">w2 start/restart</span><br><span class="line">w2 stop</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>意思是起一个代理服务，关闭代理服务。<br>其他常用命令直接<code>w2</code>可以查看命令列表</p>
+<ol start="3">
+<li><p>可以直接打开本地端口可以查看配置 <code>127.0.0.1:8899</code><br>之前在网上找的教程界面太旧了，这个截图目前是最新的</p>
+<img src="/2018/05/14/代理工具whistler的使用/image1.png">
+</li>
+<li><p>map local<br>可以新建一个规则，比如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>也可以在默认的<code>default</code>中写<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://uretailprint.yonyouup.com/iuap-print/static-build/js/core/iprint.designer.js file:///Users/changzhn/yonyou/iprint/iuap-iprint/iuap-print-service/WebContent/resources/js/core/iprint.designer.js</span><br></pre></td></tr></table></figure></p>
+<p>中间只一个空格，没有换行。</p>
+<p>这样访问的时候，线上js就可以替换成本地js。这个好处谁用谁知道。</p>
+<ol start="5">
+<li>whistler配合的chrome插件　SwitchyOmega<br>本来这个包是有自己的插件的，不知道为啥下架了，官方也是推荐使用这个插件　</li>
+</ol>
+<img src="/2018/05/14/代理工具whistler的使用/image2.png">
+<p>配置就是这个样子</p>
+<img src="/2018/05/14/代理工具whistler的使用/image3.png">
+<ol start="6">
+<li>其他功能下次再say…</li>
+</ol>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2018/05/14/代理工具whistler的使用/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>
