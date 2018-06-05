@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>menu</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="">
+    <style>
+      .menu {
+        margin: 30px auto;
+        width: 1.5rem;
+      }
+      .split {
+        position: relative;
+        margin: 0 auto .375rem;
+        border-radius: 2px;
+        display: block;
+        width: 1.5rem;
+        height: .15rem;
+        background: #8fbafb;
+        transition: all .2s linear;
+        transform-origin: 1.5rem;
+      }
+
+      .split:last-child {
+        margin-bottom: 0;
+      }
+
+      .split:first-child.close {
+        transform: rotate(-45deg);
+      }
+
+      .split:nth-child(2).close {
+        opacity: 0;
+        width: 0;
+      }
+
+      .split:last-child.close {
+        transform: rotate(45deg);
+      }
+    </style>
+  </head>
+  <body>
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div class="menu">
+      <span class="split"></span>
+      <span class="split"></span>
+      <span class="split"></span>
+    </div>
+    <script>
+      var menu = document.getElementsByClassName('menu')[0];
+      var spans = menu.getElementsByTagName('span');
+      menu.onclick = function() {
+        for(var i = 0; i < spans.length; i++) {
+          var span = spans[i];
+          var cls = span.className;
+          if (cls.indexOf('close') > -1) {
+            span.className = 'split';
+          } else {
+            span.className = 'split close';
+          }
+        }
+      }
+    </script>
+  </body>
+</html>
