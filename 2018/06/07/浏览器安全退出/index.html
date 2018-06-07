@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>在IE下将canvas保存成图片 | changzhn`s blog</title>
+  <title>浏览器安全退出 | changzhn`s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="shortcut icon" href="/favicon.ico">
   <link rel="stylesheet" href="/css/app.css">
@@ -42,20 +42,18 @@
   <main class="post">
   <article>
   <h1 class="article-title">
-    <a href="/2018/04/13/在IE下将canvas保存成图片/">在IE下将canvas保存成图片</a>
+    <a href="/2018/06/07/浏览器安全退出/">浏览器安全退出</a>
   </h1>
 
   <section class="article-meta">
-    <p class="article-date">April 13 2018</p>
+    <p class="article-date">June 07 2018</p>
   </section>
 
   <section class="article-entry">
-    <p>最近在做项目的时候，需要在页面生成二维码，然后下载下来。<br>不管用哪个轮子，生成二维码最终都是canvas的。</p>
-<p>在标准浏览器下可以使用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> imgUrl = canvas.toDataURL(<span class="string">'image/png'</span>); <span class="comment">// 转成base64</span></span><br></pre></td></tr></table></figure></p>
-<p>然后将结果给a标签，下载</p>
-<p>但是在IE下是不支持的</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> blob = canvas.msToBlob();</span><br><span class="line">navigator.msSaveBlob(blob, <span class="string">'文件名称.png'</span>);</span><br></pre></td></tr></table></figure>
-<p>这样就可以直接愉快的下载了</p>
+    <p>在web系统中，点击退出后跳转某个页面，但是如果点击浏览器的后退，却发现因为浏览器的缓存竟然还是可以回到原来的系统页面。虽然已没有任何权限操作。但是还是不能让用户可以看到系统页面，而是跳转到登录页面。</p>
+<p>这就需要在请求系统页面的时候，在响应头里加上<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctx.set(&#123;</span><br><span class="line">  <span class="string">'Cache-Control'</span>: <span class="string">'no-cache,no-store'</span>,</span><br><span class="line">  Pragma: <span class="string">'no-cache'</span>,</span><br><span class="line">  Expires: <span class="number">-1</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这样就可以禁止页面缓存，确保每次打开的时候，都会去服务器请求一次</p>
+<p><a href="https://github.com/Joo-fanChang/some_docs/blob/master/koa/server5.js" target="_blank" rel="noopener">代码示例</a></p>
 
   </section>
 </article>
@@ -95,7 +93,7 @@
 <script>
   var disqus_shortname = 'drakeleung';
   
-  var disqus_url = 'https://joo-fanchang.github.io/2018/04/13/在IE下将canvas保存成图片/';
+  var disqus_url = 'https://joo-fanchang.github.io/2018/06/07/浏览器安全退出/';
   
   (function(){
     var dsq = document.createElement('script');

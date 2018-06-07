@@ -55,14 +55,9 @@
 </blockquote>
 <p>我相信在MVC等理论形成之前，就已经有人在付诸MVC的实践。只是后来有人总结下来，并指导人们做软件开发。这种设计典范并不是只有后台的代码才有，前端也可以有很好的框架，像react和vue。</p>
 <p>为什么这么强调实践。因为在我学习MVC理论的时候，我是蒙蔽的。虽然看了很多优秀的文档，比如，阮大神的<a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html" target="_blank" rel="noopener">MVC，MVP 和 MVVM 的图示</a></p>
-<p>看了之后挺有感觉，兴冲冲写代码的时候，又感觉不知所措。不知从何下手，不知如何划分。
-最近在用react，又帮别人写了一个jquery代码，现在将这种套路试着总结一下。</p>
-<h2>需求</h2>
-<p>从后台获取数据，渲染一个简单的列表，实现列表的增删改查
-类似于这种
-<img src="/2018/04/13/来自实践的MVC和MVVM/demo1.png"></p>
-<h2>之前的套路 jquery</h2>
-<p>这是之前写代码的套路：</p>
+<p>看了之后挺有感觉，兴冲冲写代码的时候，又感觉不知所措。不知从何下手，不知如何划分。<br>最近在用react，又帮别人写了一个jquery代码，现在将这种套路试着总结一下。</p>
+<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>从后台获取数据，渲染一个简单的列表，实现列表的增删改查<br>类似于这种<br><img src="/2018/04/13/来自实践的MVC和MVVM/demo1.png"></p>
+<h2 id="之前的套路-jquery"><a href="#之前的套路-jquery" class="headerlink" title="之前的套路 jquery"></a>之前的套路 jquery</h2><p>这是之前写代码的套路：</p>
 <ol>
 <li>页面初始渲染时，从后台获取数据（一个数组）</li>
 <li>将数据使用 字符串拼接 或者 前端模板 将数据渲染到页面中</li>
@@ -70,44 +65,37 @@
 <li>拿一个删除举例，点击删除按钮，获取当前行数据的id值，发送ajax请求，根据id在后台数据库中删除，返回成功码，前端将当前行使用DOM方法删除</li>
 <li>其他的事件也是类似，在ajax的成功回调中进行dom的操作，毕竟jquery是DOM操作神器，操作起来都感觉6的飞起</li>
 </ol>
-<h2>使用react实现</h2>
-<ol>
+<h2 id="使用react实现"><a href="#使用react实现" class="headerlink" title="使用react实现"></a>使用react实现</h2><ol>
 <li>在组件中定义<code>state.arr</code>将即将要渲染的数据保存在其中</li>
 <li>写html模板</li>
 <li>请求数据，<code>setState</code>数据值，数据改变，页面自动刷新</li>
-<li>接着拿删除举例，点击删除按钮，获取当前行数据的id值，发送ajax请求，在成功的回调中，使用
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="keyword">this</span>.state.arr.filter(<span class="function"><span class="params">item</span> =&gt;</span> item.id !== id);</span><br><span class="line"><span class="keyword">this</span>.setState(&#123;</span><br><span class="line">    arr: a</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>接着拿删除举例，点击删除按钮，获取当前行数据的id值，发送ajax请求，在成功的回调中，使用<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="keyword">this</span>.state.arr.filter(<span class="function"><span class="params">item</span> =&gt;</span> item.id !== id);</span><br><span class="line"><span class="keyword">this</span>.setState(&#123;</span><br><span class="line">    arr: a</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
 </ol>
 <p>数据改变，视图又自动刷新</p>
 <ol start="5">
 <li>其他事件也是类似，从始至终都没有再操作过dom，只是各种使用<code>setState</code>方法，来维护要展示的数据</li>
 </ol>
-<p>这种方法肯定就是著名的MVC模式了。和第一种比起来，就发现这种好处是什么。我们只专心的操作数据，维护状态，从没有去操作过dom。
-让我们精力更集中。</p>
+<p>这种方法肯定就是著名的MVC模式了。和第一种比起来，就发现这种好处是什么。我们只专心的操作数据，维护状态，从没有去操作过dom。<br>让我们精力更集中。</p>
 <p>适时放一张图来感受一下。</p>
-<p><img src="/2018/04/13/来自实践的MVC和MVVM/mvc1.png"></p>
+<img src="/2018/04/13/来自实践的MVC和MVVM/mvc1.png">
 <p>看着上图来念一遍：数据改变 -&gt; 视图刷新 -&gt; 事件修改数据（controller）-&gt; 数据改变再次渲染视图。</p>
 <p>抄一段阮一峰大神博客的原文</p>
 <blockquote>
-<p>View 传送指令到 Controller
-Controller 完成业务逻辑后，要求 Model 改变状态
-Model 将新的数据发送到 View，用户得到反馈</p>
+<p>View 传送指令到 Controller<br>Controller 完成业务逻辑后，要求 Model 改变状态<br>Model 将新的数据发送到 View，用户得到反馈</p>
 </blockquote>
 <p>TIPS:因为jquery是操作dom神器。使用react和vue都不建议直接操作dom，所以用框架的话还是早是日脱离jquery</p>
 <p>如果感觉不强烈，可以画一张示意图来看一下，第一种方法的流程是什么样的。</p>
-<p><img src="/2018/04/13/来自实践的MVC和MVVM/mvc2.png"></p>
+<img src="/2018/04/13/来自实践的MVC和MVVM/mvc2.png">
 <p>获取数据后 -&gt; 渲染了一次视图 -&gt; 监听事件完成后台交互 -&gt; 又双叕粗暴的改变了视图</p>
-<h2>根据这种思想改造一下第一种方法 jquery</h2>
-<p>我们要维护一个状态数组，数组改变后，就去刷新视图，监听事件，改变状态</p>
-<p>准备工作：
-因为jquery不会自动刷新视图，还是需要写一个<code>render</code>方法来渲染视图，这个方法在初次渲染数据和修改数据后改变都要执行的。</p>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = []; <span class="comment">// 要维护的数据</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 渲染 arr</span></span><br><span class="line">    </span><br><span class="line">    bindEvent();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bindEvent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 绑定各种事件 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="根据这种思想改造一下第一种方法-jquery"><a href="#根据这种思想改造一下第一种方法-jquery" class="headerlink" title="根据这种思想改造一下第一种方法 jquery"></a>根据这种思想改造一下第一种方法 jquery</h2><p>我们要维护一个状态数组，数组改变后，就去刷新视图，监听事件，改变状态</p>
+<p>准备工作：<br>因为jquery不会自动刷新视图，还是需要写一个<code>render</code>方法来渲染视图，这个方法在初次渲染数据和修改数据后改变都要执行的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = []; <span class="comment">// 要维护的数据</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">render</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 渲染 arr</span></span><br><span class="line">    </span><br><span class="line">    bindEvent();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">bindEvent</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 绑定各种事件 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这样重构完，再来结合图看一次。</p>
-<p><img src="/2018/04/13/来自实践的MVC和MVVM/mvc3.png"></p>
+<img src="/2018/04/13/来自实践的MVC和MVVM/mvc3.png">
 <p><a href="https://joo-fanchang.github.io/2018/04/13/%E6%9D%A5%E8%87%AA%E5%AE%9E%E8%B7%B5%E7%9A%84MVC%E5%92%8CMVVM/form.html">点击查看代码示例</a></p>
 <p><a href="https://github.com/Joo-fanChang/Joo-fanChang.github.io/blob/master/2018/04/13/%E6%9D%A5%E8%87%AA%E5%AE%9E%E8%B7%B5%E7%9A%84MVC%E5%92%8CMVVM/form.html" target="_blank" rel="noopener">点击查看源码</a></p>
-<h2>接下来对比一下 mvc 和 mvvm</h2>
-<p>上面实现了简陋的mvc。会发现，不管<code>arr</code>状态有个风吹草动，整个列表都会重新调用渲染方法。react和vue内置了各种diff算法，避免了这个尴尬。</p>
+<h2 id="接下来对比一下-mvc-和-mvvm"><a href="#接下来对比一下-mvc-和-mvvm" class="headerlink" title="接下来对比一下 mvc 和 mvvm"></a>接下来对比一下 mvc 和 mvvm</h2><p>上面实现了简陋的mvc。会发现，不管<code>arr</code>状态有个风吹草动，整个列表都会重新调用渲染方法。react和vue内置了各种diff算法，避免了这个尴尬。</p>
 <p>未完待续。。。</p>
 
   </section>
