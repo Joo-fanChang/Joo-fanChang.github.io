@@ -9,6 +9,7 @@ categories: web
 持续更新　2018.06.05
 
 - 菜单的　三　和　X　的效果，点击切换。[预览地址](https://joo-fanchang.github.io/css-demo/01.menu.html)
-{% asset_img menu1.gif %}
 - 优化自带的radio [预览地址](https://joo-fanchang.github.io/css-demo/02.radio.html)
+
+{% asset_img menu1.gif %}
 {% asset_img checkbox1.gif %}
