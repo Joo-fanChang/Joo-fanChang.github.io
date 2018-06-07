@@ -50,38 +50,85 @@
   </section>
 
   <section class="article-entry">
-    <p>持续更新…<br>最后更新时间2018.4.17</p>
-<h1 id="webpack-4"><a href="#webpack-4" class="headerlink" title="webpack(4)"></a>webpack(4)</h1><h2 id="1-配置分离"><a href="#1-配置分离" class="headerlink" title="1 配置分离"></a>1 配置分离</h2><p>项目过大的时候，配置文件最好是分离开来。导出<code>webpack</code>配置的时候，需要使用<code>webpack-merge</code>这个包。<br>比如</p>
+    <p>持续更新...
+最后更新时间2018.4.17</p>
+<h1>webpack(4)</h1>
+<h2>1 配置分离</h2>
+<p>项目过大的时候，配置文件最好是分离开来。导出<code>webpack</code>配置的时候，需要使用<code>webpack-merge</code>这个包。
+比如</p>
 <ul>
 <li>webpack.base.js</li>
 <li>webpack.dev.js</li>
 <li>webpack.prod.js</li>
 </ul>
 <p>其中<code>base</code>放一些基本的配置。<code>dev</code>中可以配置<code>devServer</code>等开发时的参数。<code>prod</code>中配置压缩等配置。</p>
-<h2 id="2-entry-output"><a href="#2-entry-output" class="headerlink" title="2 entry output"></a>2 entry output</h2><h3 id="2-1-默认值"><a href="#2-1-默认值" class="headerlink" title="2.1 默认值"></a>2.1 默认值</h3><p>在webpack4中，给了这两个<code>key</code>了默认值。分别为<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">entry: <span class="string">'./src/main.js'</span>,</span><br><span class="line">output: &#123;</span><br><span class="line">	path: path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">	filename: <span class="string">'bundle.js'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>2 entry output</h2>
+<h3>2.1 默认值</h3>
+<p>在webpack4中，给了这两个<code>key</code>了默认值。分别为
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">entry: <span class="string">'./src/main.js'</span>,</span><br><span class="line">output: &#123;</span><br><span class="line">	path: path.resolve(__dirname, <span class="string">'dist'</span>),</span><br><span class="line">	filename: <span class="string">'bundle.js'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>也就是说，如果在一个项目目录中没有任何配置的话，直接运行<code>webpack</code>也是可以的。</p>
 <p><strong>TIPS</strong></p>
 <ol>
 <li>在webpack4中，命令行与配置文件已经分成两个包了。如果直接使用命令行工具的话，需要使用<code>webpack-cli</code>这个包。</li>
-<li>如果想更改<code>output.path</code>的时候，也需要加了<code>entry</code>参数，也就是说，修改默认参数的时候，两个需要一起修改。否则就会报一个<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ERROR in multi (webpack)-dev-server/client?http://localhost:8080 ./src</span><br><span class="line">Module not found: Error: Can&apos;t resolve &apos;./src&apos; in &apos;/Users/changzhn/git/webp4&apos;</span><br><span class="line"> @ multi (webpack)-dev-server/client?http://localhost:8080 ./src</span><br></pre></td></tr></table></figure>
-</li>
+<li>如果想更改<code>output.path</code>的时候，也需要加了<code>entry</code>参数，也就是说，修改默认参数的时候，两个需要一起修改。否则就会报一个
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ERROR in multi (webpack)-dev-server/client?http://localhost:8080 ./src</span><br><span class="line">Module not found: Error: Can&apos;t resolve &apos;./src&apos; in &apos;/Users/changzhn/git/webp4&apos;</span><br><span class="line"> @ multi (webpack)-dev-server/client?http://localhost:8080 ./src</span><br></pre></td></tr></table></figure></li>
 </ol>
 <p>因此就算和默认值相同也要加了<code>entry</code>属性</p>
-<h3 id="2-2-output-publicPath"><a href="#2-2-output-publicPath" class="headerlink" title="2.2 output.publicPath"></a>2.2 output.publicPath</h3><blockquote>
+<h3>2.2 output.publicPath</h3>
+<blockquote>
 <p>这是我找工作的时候一道面试题</p>
 </blockquote>
-<p>这个属性决定了，<code>index.html</code>文件引入静态资源的路径<br>比如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">publicPath: <span class="string">'build'</span></span><br></pre></td></tr></table></figure></p>
+<p>这个属性决定了，<code>index.html</code>文件引入静态资源的路径
+比如：
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">publicPath: <span class="string">'build'</span></span><br></pre></td></tr></table></figure></p>
 <ul>
-<li>开发时，该属性代表静态资源打包的路径，所以在相应<code>index.html</code>中引入<code>&lt;script src=&quot;./build/bundle.js&quot;&gt;&lt;/script&gt;</code><br>例如<code>publicPath</code>设置为 <code>xx/build/</code><br>那么相应的<code>index.html</code>引入的就是 <code>&lt;script src=&quot;./xx/build/bundle.js&quot;&gt;&lt;/script&gt;</code></li>
-<li>生产时，该属性。。也是这个意思，不过可以配置<code>cdn</code>目录<br>例如<code>publicPath</code>设置为<code>https://bootcdn.com/changzhn/</code><br>那么相应的<code>index.html</code>引入就是<code>&lt;script src=&quot;https://bootcdn.com/changzhn/build/bundle.js&quot;&gt;&lt;/script&gt;</code></li>
+<li>开发时，该属性代表静态资源打包的路径，所以在相应<code>index.html</code>中引入<code>&lt;script src=&quot;./build/bundle.js&quot;&gt;&lt;/script&gt;</code>
+例如<code>publicPath</code>设置为 <code>xx/build/</code>
+那么相应的<code>index.html</code>引入的就是 <code>&lt;script src=&quot;./xx/build/bundle.js&quot;&gt;&lt;/script&gt;</code></li>
+<li>生产时，该属性。。也是这个意思，不过可以配置<code>cdn</code>目录
+例如<code>publicPath</code>设置为<code>https://bootcdn.com/changzhn/</code>
+那么相应的<code>index.html</code>引入就是<code>&lt;script src=&quot;https://bootcdn.com/changzhn/build/bundle.js&quot;&gt;&lt;/script&gt;</code></li>
 </ul>
-<h2 id="3-devServer"><a href="#3-devServer" class="headerlink" title="3 devServer"></a>3 devServer</h2><h3 id="3-1-compress"><a href="#3-1-compress" class="headerlink" title="3.1 compress"></a>3.1 compress</h3><p>boolean<br>一切服务都启用<code>gzip压缩</code><br>测试：<br>|文件|大小|<br>| :–: | :–: |<br>|未压缩|337k|<br>|压缩|86.4k|</p>
-<h2 id="4-resolve"><a href="#4-resolve" class="headerlink" title="4 resolve"></a>4 resolve</h2><h3 id="4-1-alias"><a href="#4-1-alias" class="headerlink" title="4.1 alias"></a>4.1 alias</h3><p>提供了一些引入模板的简写名称，比如：<br>想引入的文件不想使用<code>../</code> 和 <code>../../</code>之类的，都可以从<code>src</code>为起始目录往下寻找<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">resolve: &#123;</span><br><span class="line">	alias: &#123;</span><br><span class="line">		<span class="string">'@'</span>: path.resolve(__dirname, <span class="string">'../src'</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在引入模块的时候<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'@/assets/common.less'</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="4-2-extensions"><a href="#4-2-extensions" class="headerlink" title="4.2 extensions"></a>4.2 extensions</h3><p>设置模块可省略的后缀名称，比如：<br>上面引入模块可以改成这样<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'@/assets/common'</span></span><br></pre></td></tr></table></figure></p>
-<p>如果两个模板重名的话，应该就需要加上后缀了<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'@/assets/common.css'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'@/assets/common.less'</span>;</span><br></pre></td></tr></table></figure></p>
-<h2 id="5-module"><a href="#5-module" class="headerlink" title="5 module"></a>5 module</h2><p>webpack默认只能解析<code>js</code>模块的，所以前端资源的<code>css</code> <code>less</code> <code>jsx</code> <code>png</code>等等都需要<code>loader</code>实现的 </p>
-<h3 id="5-1-rules-css"><a href="#5-1-rules-css" class="headerlink" title="5.1 rules css"></a>5.1 rules css</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">	rules: [</span><br><span class="line">		&#123;</span><br><span class="line">			test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">			use: [</span><br><span class="line">				<span class="string">'style-loader'</span>,</span><br><span class="line">				&#123;</span><br><span class="line">					loader: <span class="string">'css-loader'</span></span><br><span class="line">				&#125;</span><br><span class="line">			]</span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2>3 devServer</h2>
+<h3>3.1 compress</h3>
+<p>boolean
+一切服务都启用<code>gzip压缩</code>
+测试：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">文件</th>
+<th style="text-align:center">大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">未压缩</td>
+<td style="text-align:center">337k</td>
+</tr>
+<tr>
+<td style="text-align:center">压缩</td>
+<td style="text-align:center">86.4k</td>
+</tr>
+</tbody>
+</table>
+<h2>4 resolve</h2>
+<h3>4.1 alias</h3>
+<p>提供了一些引入模板的简写名称，比如：
+想引入的文件不想使用<code>../</code> 和 <code>../../</code>之类的，都可以从<code>src</code>为起始目录往下寻找
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">resolve: &#123;</span><br><span class="line">	alias: &#123;</span><br><span class="line">		<span class="string">'@'</span>: path.resolve(__dirname, <span class="string">'../src'</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在引入模块的时候
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'@/assets/common.less'</span></span><br></pre></td></tr></table></figure></p>
+<h3>4.2 extensions</h3>
+<p>设置模块可省略的后缀名称，比如：
+上面引入模块可以改成这样
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'@/assets/common'</span></span><br></pre></td></tr></table></figure></p>
+<p>如果两个模板重名的话，应该就需要加上后缀了
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">'@/assets/common.css'</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">'@/assets/common.less'</span>;</span><br></pre></td></tr></table></figure></p>
+<h2>5 module</h2>
+<p>webpack默认只能解析<code>js</code>模块的，所以前端资源的<code>css</code> <code>less</code> <code>jsx</code> <code>png</code>等等都需要<code>loader</code>实现的</p>
+<h3>5.1 rules css</h3>
+<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>: &#123;</span><br><span class="line">	rules: [</span><br><span class="line">		&#123;</span><br><span class="line">			test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">			use: [</span><br><span class="line">				<span class="string">'style-loader'</span>,</span><br><span class="line">				&#123;</span><br><span class="line">					loader: <span class="string">'css-loader'</span></span><br><span class="line">				&#125;</span><br><span class="line">			]</span><br><span class="line">		&#125;</span><br><span class="line">	]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>增加<code>postcss-loader</code>配置<code>autoprefixer</code></p>
 <p>其中有几点注意的地方：</p>
 <ul>
@@ -95,18 +142,27 @@
 <li>数组</li>
 <li>对象</li>
 </ul>
-<h3 id="5-3-rules-url-loader"><a href="#5-3-rules-url-loader" class="headerlink" title="5.3 rules url-loader"></a>5.3 rules url-loader</h3><p>关于<code>url-loader</code>和<code>file-loader</code>：</p>
+<h3>5.3 rules url-loader</h3>
+<p>关于<code>url-loader</code>和<code>file-loader</code>：</p>
 <ul>
 <li><code>url-loader</code>是基于<code>file-loader</code>的一层封装，可以做一些图片大小限制，小于多少<code>kb</code>时，可以将图片转成<code>base64</code>内嵌到页面中，而减少一次<code>http</code>请求</li>
 <li><code>url-loader</code>是依赖于<code>file-loader</code>的，所以使用<code>url-loader</code>的话，就必须安装<code>file-loader</code>的，否则会报错</li>
 </ul>
 <p>同样地，可以使用<code>url-loader</code>处理图标字体</p>
-<h2 id="6-devtool"><a href="#6-devtool" class="headerlink" title="6 devtool"></a>6 devtool</h2><p>使用<code>source-map</code>的方式</p>
-<p>一般在开发环境使用<code>#eval-source-map</code><br>在生产环境使用<code>#cheap-module-source-amp</code></p>
+<h2>6 devtool</h2>
+<p>使用<code>source-map</code>的方式</p>
+<p>一般在开发环境使用<code>#eval-source-map</code>
+在生产环境使用<code>#cheap-module-source-amp</code></p>
 <p>具体打包速度等可以参考<a href="https://doc.webpack-china.org/configuration/devtool/" target="_blank" rel="noopener">官网</a></p>
-<h2 id="7-plugins"><a href="#7-plugins" class="headerlink" title="7 plugins"></a>7 plugins</h2><h2 id="7-1-html-webpack-plugin"><a href="#7-1-html-webpack-plugin" class="headerlink" title="7.1 html-webpack-plugin"></a>7.1 html-webpack-plugin</h2><p>如果<code>output.file</code>中使用了<code>hash</code>。又不想在<code>index.html</code>手动引入<code>js</code>文件，可以借助插件来完成。<br>在根目录下提供一个模板文件，然后可以设置<code>title</code> <code>favicon</code>等属性。</p>
-<h2 id="7-2-extract-text-webpack-plugin-next"><a href="#7-2-extract-text-webpack-plugin-next" class="headerlink" title="7.2 extract-text-webpack-plugin@next"></a>7.2 extract-text-webpack-plugin@next</h2><p>提取css文件。</p>
-<p><strong>TIPS:</strong><br>在<code>webpack4</code>中需要使用<code>extract-text-webpack-plugin@next</code>否则会报一个错<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: Chunk.entrypoints: Use Chunks.groupsIterable and filter by instanceof Entrypoint instead</span><br></pre></td></tr></table></figure></p>
+<h2>7 plugins</h2>
+<h2>7.1 html-webpack-plugin</h2>
+<p>如果<code>output.file</code>中使用了<code>hash</code>。又不想在<code>index.html</code>手动引入<code>js</code>文件，可以借助插件来完成。
+在根目录下提供一个模板文件，然后可以设置<code>title</code> <code>favicon</code>等属性。</p>
+<h2>7.2 extract-text-webpack-plugin@next</h2>
+<p>提取css文件。</p>
+<p><strong>TIPS:</strong>
+在<code>webpack4</code>中需要使用<code>extract-text-webpack-plugin@next</code>否则会报一个错
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: Chunk.entrypoints: Use Chunks.groupsIterable and filter by instanceof Entrypoint instead</span><br></pre></td></tr></table></figure></p>
 
   </section>
 </article>

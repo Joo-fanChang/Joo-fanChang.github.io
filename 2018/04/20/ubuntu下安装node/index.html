@@ -56,12 +56,14 @@
 <li>使用<code>sudo xz -d node-v8.11.1-linux-x64.tar.xz</code>进行解压会得到一个<code>node-v8.11.1-linux-x64.tar</code>文件</li>
 <li>再次进行解压<code>sudo tar -xvf node-v8.11.1-linux-x64.tar</code>得到解压后的文件夹</li>
 <li>可以进入该目录然后使用<code>./bin/node -v</code>来查看是否安装成功</li>
-<li>进行全局配置<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/node/node-v8.11.1-linux-x64/bin/node /usr/<span class="built_in">local</span>/bin/node</span><br></pre></td></tr></table></figure>
-</li>
+<li>进行全局配置
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s /usr/node/node-v8.11.1-linux-x64/bin/node /usr/<span class="built_in">local</span>/bin/node</span><br></pre></td></tr></table></figure></li>
 </ul>
 <p>同样使用上面的命令将<code>npm</code>和<code>npx</code>也进行全局配置</p>
 <p>这样配置完后有个特别坑的地方，就是所有全局安装的包命令全不可用</p>
-<p>需要在<code>/etc/profile</code>的最后加上两行代码<br>需要注意的是这个文件是个只读文件，需要修改一下只读属性<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> NODE_HOME=/usr/node/node-v8.11.1-linux-x64/bin</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$NODE_HOME</span>:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></p>
+<p>需要在<code>/etc/profile</code>的最后加上两行代码
+需要注意的是这个文件是个只读文件，需要修改一下只读属性
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> NODE_HOME=/usr/node/node-v8.11.1-linux-x64/bin</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$NODE_HOME</span>:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure></p>
 <p>添加完成后重启，就可以愉快地使用全局命令了</p>
 
   </section>
