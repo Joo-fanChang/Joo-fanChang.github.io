@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>sql语句 | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/./categories/web">web</a>
+    
+  
+    
+      <a href="/./categories/微信">微信</a>
+    
+  
+    
+      <a href="/./categories/git">git</a>
+    
+  
+    
+      <a href="/./categories/服务端">服务端</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2018/06/26/sql语句/">sql语句</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">June 26 2018</p>
+  </section>
+
+  <section class="article-entry">
+    <h2 id="sql语句"><a href="#sql语句" class="headerlink" title="sql语句"></a>sql语句</h2><h3 id="1-查询"><a href="#1-查询" class="headerlink" title="1 查询"></a>1 查询</h3><h4 id="1-1-SELECT"><a href="#1-1-SELECT" class="headerlink" title="1.1 SELECT"></a>1.1 SELECT</h4><p>查询语句<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> <span class="keyword">name</span>=<span class="string">'changzhn'</span></span><br></pre></td></tr></table></figure></p>
+<p>-&gt; 查询　列名(*代表所有列)　从　表名　条件　列名　等于　值</p>
+<p>显示结果</p>
+<table>
+<thead>
+<tr>
+<th>pk</th>
+<th>name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>123</td>
+<td>changzhn</td>
+</tr>
+</tbody>
+</table>
+<p>如果改成<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> pk <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> <span class="keyword">name</span>=<span class="string">'changzhn'</span></span><br></pre></td></tr></table></figure></p>
+<p>显示　列名为pk的列　从　表名　条件　等于　值<br>显示结果<br>pk |<br>—|<br>123 |</p>
+<p>如果只想显示某几列<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> pk, firstName <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span> <span class="keyword">name</span>=<span class="string">'changzhn'</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>语句对大小写敏感，使用<code>select</code>和<code>SELECT</code>效果一样</li>
+<li>对查询内容大小写也不敏感，查询<code>changzhn</code>和<code>Changzhn</code>效果一样</li>
+<li>使用单引号(也有数据库支持双引号)</li>
+</ul>
+<h4 id="1-2-SELECT-DISTINCT"><a href="#1-2-SELECT-DISTINCT" class="headerlink" title="1.2 SELECT DISTINCT"></a>1.2 SELECT DISTINCT</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> <span class="keyword">name</span> <span class="keyword">FROM</span> <span class="keyword">users</span></span><br></pre></td></tr></table></figure>
+<p>查询　列　不重复值</p>
+<h4 id="1-3-SELECT-AND-OR"><a href="#1-3-SELECT-AND-OR" class="headerlink" title="1.3 SELECT AND/OR"></a>1.3 SELECT AND/OR</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> Persons <span class="keyword">WHERE</span> FirstName=<span class="string">'Thomas'</span> <span class="keyword">AND</span> LastName=<span class="string">'Carter'</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> Persons <span class="keyword">WHERE</span> firstname=<span class="string">'Thomas'</span> <span class="keyword">OR</span> lastname=<span class="string">'Carter'</span></span><br></pre></td></tr></table></figure>
+<p>AND和OR也可以结合使用</p>
+<h4 id="1-4-SELECT-ORDER"><a href="#1-4-SELECT-ORDER" class="headerlink" title="1.4 SELECT ORDER"></a>1.4 SELECT ORDER</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> Company, OrderNumber <span class="keyword">FROM</span> Orders <span class="keyword">ORDER</span> <span class="keyword">BY</span> Company</span><br><span class="line"><span class="keyword">SELECT</span> Company, OrderNumber <span class="keyword">FROM</span> Orders <span class="keyword">ORDER</span> <span class="keyword">BY</span> Company, OrderNumber</span><br><span class="line"><span class="keyword">SELECT</span> Company, OrderNumber <span class="keyword">FROM</span> Orders <span class="keyword">ORDER</span> <span class="keyword">BY</span> Company <span class="keyword">DESC</span></span><br><span class="line"><span class="keyword">SELECT</span> Company, OrderNumber <span class="keyword">FROM</span> Orders <span class="keyword">ORDER</span> <span class="keyword">BY</span> Company <span class="keyword">DESC</span>, OrderNumber <span class="keyword">ASC</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>查询以公司名称排序</li>
+<li>查询以公司名称排序，公司名称一样再以orderNumber排序</li>
+<li>查询以公司名称倒序排列</li>
+<li>查询以公司名称倒序排列，再以orderNumber正序排序</li>
+</ul>
+<h3 id="2-插入"><a href="#2-插入" class="headerlink" title="2 插入"></a>2 插入</h3><h4 id="2-1-INSERT"><a href="#2-1-INSERT" class="headerlink" title="2.1 INSERT"></a>2.1 INSERT</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">users</span> <span class="keyword">VALUES</span> (<span class="number">125</span>, <span class="string">'joo'</span>)</span><br></pre></td></tr></table></figure>
+<p>插入　在　表名　值　注意顺序</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> <span class="keyword">users</span> (pk, <span class="keyword">name</span>) <span class="keyword">VALUES</span> (<span class="number">126</span>, <span class="string">'han'</span>)</span><br></pre></td></tr></table></figure>
+<p>在特定的列添加值</p>
+<h3 id="3-更新"><a href="#3-更新" class="headerlink" title="3 更新"></a>3 更新</h3><h4 id="3-1-UPDATE"><a href="#3-1-UPDATE" class="headerlink" title="3.1 UPDATE"></a>3.1 UPDATE</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> 表名称 <span class="keyword">SET</span> 列名称<span class="number">1</span> = 新值<span class="number">1</span>, 列名称<span class="number">2</span> = 新值<span class="number">2</span> <span class="keyword">WHERE</span> 列名称 = 某值</span><br></pre></td></tr></table></figure>
+<p>实例<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">users</span> <span class="keyword">SET</span> sex = <span class="number">0</span> <span class="keyword">WHERE</span> <span class="keyword">name</span> = <span class="string">'joo'</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="4-删除"><a href="#4-删除" class="headerlink" title="4 删除"></a>4 删除</h3><h4 id="4-1-DELETE"><a href="#4-1-DELETE" class="headerlink" title="4.1 DELETE"></a>4.1 DELETE</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> 表名称 <span class="keyword">WHERE</span> 列名称 = 值</span><br></pre></td></tr></table></figure>
+<p>实例<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> <span class="keyword">users</span> <span class="keyword">WHERE</span>	pk = <span class="number">126</span></span><br></pre></td></tr></table></figure></p>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2018/06/26/sql语句/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>
