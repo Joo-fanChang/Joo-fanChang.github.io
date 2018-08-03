@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>高德面试总结 | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/./categories/web">web</a>
+    
+  
+    
+      <a href="/./categories/微信">微信</a>
+    
+  
+    
+      <a href="/./categories/git">git</a>
+    
+  
+    
+      <a href="/./categories/服务端">服务端</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2018/08/02/高德面试总结/">高德面试总结</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">August 02 2018</p>
+  </section>
+
+  <section class="article-entry">
+    <p>因为没有想着可以通过，所以也没有怎么准备，本想着一轮游，竟然面完了三轮。</p>
+<p>一面面试官，上来就说你做的项目都一般般啊，让说一下在工作中最大的项目，怎么Hold住的，从中学习到了什么。然后才是一些正常基础性的问题。<br>二面面试官，上来问你对css比较熟悉还是js比较熟悉，我说js，然后问了一堆js的东西，后面加上react生命周期、diff，和其他框架渲染上的优点，和模板引擎渲染上有什么优点。<br>三面面试官，技术上问的比较少，都是一些开放性的问题，下面会罗列一下</p>
+<ol>
+<li>垂直居中布局，　position * 3 + flex + table</li>
+<li><code>nth-child(4n + 3)</code></li>
+<li>要实现一个水印，应该怎么去做，答用<code>background-img</code>去做，问用z-index行不行，为什么</li>
+<li><p>在使用less过程中遇到过哪些坑，使用calc应该注意什么<br>-_-<br>网上说的<code>calc(100% - 30px)</code>并没有发生</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// width: calc(~"100% - 210px")</span><br><span class="line">    <span class="selector-tag">width</span>: <span class="selector-tag">calc</span>(100% <span class="selector-tag">-</span> 30<span class="selector-tag">px</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>flex: 1 的三个子元素，是不是一定会均分<br>如果有3个子元素，中间的元素文字特别多，这个时候是三个还是等分父元素总宽度还是中间元素会多一些？<br>试了一下还是三个均分的-_-，当时答对叕改错了。</p>
+</li>
+<li>怎么开启gpu加速，gpu加速是什么<br>除了<code>transform</code>的一些<code>3d</code>还有啥？</li>
+<li><p>var let const 区别，const obj = {}; obj.a = ‘a’会不会报错　适用哪些数据类型</p>
+<blockquote>
+<p>const实际上保证的，并不是变量的值不得改动，而是变量指向的那个内存地址所保存的数据不得改动。对于简单类型的数据（数值、字符串、布尔值），值就保存在变量指向的那个内存地址，因此等同于常量</p>
+</blockquote>
+</li>
+<li><p>闭包，应用</p>
+</li>
+<li>promise除了处理异步还可以用来做什么</li>
+<li>es6的　genarator函数，应用场景</li>
+<li><p>箭头函数和普通函数有什么区别，会不会随外层的this改变而改变</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> o1 = &#123;<span class="attr">name</span>: <span class="string">'o1'</span>&#125;;</span><br><span class="line"><span class="keyword">let</span> o2 = &#123;<span class="attr">name</span>: <span class="string">'02'</span>&#125;;</span><br><span class="line"><span class="keyword">var</span> name = <span class="string">'window'</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">say</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="keyword">let</span> sing = <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</span><br><span class="line">	sing();</span><br><span class="line">&#125;</span><br><span class="line">say(); <span class="comment">// window</span></span><br><span class="line">say.call(o1); <span class="comment">// o1</span></span><br><span class="line">say.call(o2); <span class="comment">// o2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>改变this的方式，自己实现一个bind<br>bind有两种传参方式，因为用的不深，所以遗漏了。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>跨域方式，jsonp跨域原理，使用jsonp跨域时用<code>&lt;img /&gt;</code>行不行，为什么<br>jsonp跨域原理是利用script标签的src属性没有限制，script标签可以将请求文本放到全局作用域中执行。而img不会去处理响应体，但确实可以发送。</p>
+</li>
+<li>克隆一个数组方法，用=为什么不行，如果数组项都是数组，怎么去深克隆<br>自己写了一个deepClone</li>
+<li>http状态码问了301 302 304</li>
+<li>浏览器的缓存问题</li>
+<li>自己实现一个require([…args], cb)</li>
+<li>封装一个react组件，实现1w张图片轮播</li>
+<li>高阶函数应用：如果实现防止连续提交</li>
+<li>react生命周期，特别详细，每个都说到了，可以在里面做些什么，state和props合并在哪里处理，constructor作用</li>
+<li>react的事件，事件是绑定在真实dom上还是虚拟dom上</li>
+<li>react的性能优势表现什么地方，和vue相比，和模板引擎相比</li>
+<li>react的diff算法</li>
+<li>函数式编程了解过没有，有什么优点</li>
+<li>position值有哪些，相对于谁定位的<br>这个坑主要在于，元素默认是<code>static</code>定位的，如下图<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lv1"</span>&gt;</span> <span class="comment">&lt;!-- relative定位 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lv2"</span>&gt;</span> <span class="comment">&lt;!-- 显式为static定位 --&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lv3"</span>&gt;</span> <span class="comment">&lt;!-- 设置定位后，是相对于谁的？ --&gt;</span></span><br><span class="line">       3</span><br><span class="line">     <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>除了常见的五个值外还有<code>initial</code> <code>unset</code> <code>sticky</code>等值<br>initial是默认值<br>unset是取消设置，这个时候，样式如果是可继承的就使用继承的属性值<code>inherit</code>，如果是非继承的就是<code>initial</code></p>
+<p>开放性问题</p>
+<ol>
+<li>想过前端会发展成什么样吗</li>
+<li>公司现在成型的开发体系，现在老板让开发一个新的功能，现在流行的一种新的技术特别适合，但是可能对老项目有些不友好的地方，如果让我怎么取舍</li>
+<li>自己规划是什么，如果实现自己的目标</li>
+<li>自己的优势是什么，在团队中发挥怎样的作用，希望加入的团队是什么样子的</li>
+<li>自己下班后干什么，看过什么书</li>
+</ol>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2018/08/02/高德面试总结/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>
