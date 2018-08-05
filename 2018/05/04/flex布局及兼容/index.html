@@ -51,16 +51,28 @@
 
   <section class="article-entry">
     <p>元素设置为flex模型后，其float clear vertical-align 等属性都会失效</p>
-<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><h4 id="作用在父元素上的属性"><a href="#作用在父元素上的属性" class="headerlink" title="作用在父元素上的属性"></a>作用在父元素上的属性</h4><ul>
-<li><p><code>display: flex</code><br>设置这个属性后就会成为flex盒模型</p>
+<h2>用法</h2>
+<h4>作用在父元素上的属性</h4>
+<ul>
+<li>
+<p><code>display: flex</code>
+设置这个属性后就会成为flex盒模型</p>
 </li>
-<li><p><code>flex-direction</code><br>设置flex主轴的方向，属性值有：<code>row/row-reverse/colum/colum-reverse</code></p>
+<li>
+<p><code>flex-direction</code>
+设置flex主轴的方向，属性值有：<code>row/row-reverse/colum/colum-reverse</code></p>
 </li>
-<li><p><code>flex-wrap</code><br>设置换行的方式，属性值有：<code>nowrap/wrap/wrap-reverse</code></p>
+<li>
+<p><code>flex-wrap</code>
+设置换行的方式，属性值有：<code>nowrap/wrap/wrap-reverse</code></p>
 </li>
-<li><p><code>flex-flow</code> 是<code>flex-direction</code>和<code>flex-wrap</code>的组合属性<br>默认值为<code>row nowrap</code></p>
+<li>
+<p><code>flex-flow</code> 是<code>flex-direction</code>和<code>flex-wrap</code>的组合属性
+默认值为<code>row nowrap</code></p>
 </li>
-<li><p><code>justify-content</code><br>设置项目在主轴上的排列方式：属性值有</p>
+<li>
+<p><code>justify-content</code>
+设置项目在主轴上的排列方式：属性值有</p>
 </li>
 </ul>
 <ol>
@@ -71,7 +83,8 @@
 <li>space-around  两侧有间隙，这个间隙是项目之间间隙的一半</li>
 </ol>
 <ul>
-<li><code>align-items</code><br>项目在交叉轴上的对齐方式：属性值有</li>
+<li><code>align-items</code>
+项目在交叉轴上的对齐方式：属性值有</li>
 </ul>
 <ol>
 <li>flex-start</li>
@@ -81,7 +94,10 @@
 <li>stretch <strong>默认值，占满空间</strong></li>
 </ol>
 <ul>
-<li><code>align-content</code><br>多根轴的对齐方式，如果只有一根轴就不生效<br>这个的意思是：如果设置为<code>row</code>排列，一行又显示不下，设置了<code>wrap</code>那么会有两行或者三行，这个属性是设置了这个整体在垂直方向的位置<br>属性值有：</li>
+<li><code>align-content</code>
+多根轴的对齐方式，如果只有一根轴就不生效
+这个的意思是：如果设置为<code>row</code>排列，一行又显示不下，设置了<code>wrap</code>那么会有两行或者三行，这个属性是设置了这个整体在垂直方向的位置
+属性值有：</li>
 </ul>
 <ol>
 <li>flex-start</li>
@@ -91,20 +107,34 @@
 <li>space-around  两侧有间隙，这个间隙是项目之间间隙的一半</li>
 <li>stretch <strong>默认值</strong></li>
 </ol>
-<h4 id="作用在项目上的属性"><a href="#作用在项目上的属性" class="headerlink" title="作用在项目上的属性"></a>作用在项目上的属性</h4><ul>
-<li><code>order</code><br>数值越小越靠前，默认为0</li>
+<h4>作用在项目上的属性</h4>
+<ul>
+<li><code>order</code>
+数值越小越靠前，默认为0</li>
 </ul>
 <ul>
-<li><code>flex-grow</code> 放大比例，如何去分配默认空间，0不放大，1均分，如果按其他比例，可以单独给项目设置</li>
-<li><code>flex-shrink</code> 缩小比例，0不缩小，1等比例缩小，默认值是1</li>
-<li><p><code>flex-basis</code> 是设置元素的宽高值，默认为auto</p>
+<li>
+<p><code>flex-grow</code> 放大比例，如何去分配默认空间，0不放大，1均分，如果按其他比例，可以单独给项目设置</p>
 </li>
-<li><p><code>flex</code>为上面三个属性的组件属性 默认值为<code>0 1 auto</code><br>这个属性是有两个快捷属性</p>
+<li>
+<p><code>flex-shrink</code> 缩小比例，0不缩小，1等比例缩小，默认值是1</p>
 </li>
-<li><code>auto</code> 1 1 auto</li>
-<li><p><code>none</code> 0 0 auto</p>
+<li>
+<p><code>flex-basis</code> 是设置元素的宽高值，默认为auto</p>
 </li>
-<li><p><code>align-self</code> 单独设置对齐方式<br>属性</p>
+<li>
+<p><code>flex</code>为上面三个属性的组件属性 默认值为<code>0 1 auto</code>
+这个属性是有两个快捷属性</p>
+</li>
+<li>
+<p><code>auto</code> 1 1 auto</p>
+</li>
+<li>
+<p><code>none</code> 0 0 auto</p>
+</li>
+<li>
+<p><code>align-self</code> 单独设置对齐方式
+属性</p>
 </li>
 </ul>
 <ol start="0">
@@ -113,15 +143,16 @@
 <li>flex-end</li>
 <li>center</li>
 <li>baseline</li>
-<li>stretch </li>
+<li>stretch</li>
 </ol>
-<h2 id="兼容写法"><a href="#兼容写法" class="headerlink" title="兼容写法"></a>兼容写法</h2><p>下面这套兼容写法是由<code>autoprefixer</code>提供</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: -webkit-box;</span><br><span class="line">  <span class="attribute">display</span>: -ms-flexbox;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-webkit-box-orient</span>: horizontal;</span><br><span class="line">  <span class="attribute">-webkit-box-direction</span>: normal;</span><br><span class="line">  <span class="attribute">-ms-flex-direction</span>: row;</span><br><span class="line">  <span class="attribute">flex-direction</span>: row;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-ms-flex-wrap</span>: wrap;</span><br><span class="line">  <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-webkit-box-pack</span>: start;</span><br><span class="line">  <span class="attribute">-ms-flex-pack</span>: start;</span><br><span class="line">  <span class="attribute">justify-content</span>: flex-start;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-webkit-box-align</span>: baseline;</span><br><span class="line">  <span class="attribute">-ms-flex-align</span>: baseline;</span><br><span class="line">  <span class="attribute">align-items</span>: baseline;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-ms-flex-line-pack</span>: center;</span><br><span class="line">  <span class="attribute">align-content</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-box-ordinal-group</span>: <span class="number">3</span>;</span><br><span class="line">  <span class="attribute">-ms-flex-order</span>: <span class="number">2</span>;</span><br><span class="line">  <span class="attribute">order</span>: <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-webkit-box-flex</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">-ms-flex-positive</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-ms-flex-negative</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">flex-shrink</span>: <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-ms-flex-preferred-size</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">flex-basis</span>: <span class="number">30px</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-ms-flex</span>: auto;</span><br><span class="line">  <span class="attribute">flex</span>: auto;</span><br><span class="line">  <span class="attribute">-ms-flex-item-align</span>: center;</span><br><span class="line">  <span class="attribute">align-self</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2>兼容写法</h2>
+<p>下面这套兼容写法是由<code>autoprefixer</code>提供</p>
+<p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: -webkit-box;</span><br><span class="line">  <span class="attribute">display</span>: -ms-flexbox;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-webkit-box-orient</span>: horizontal;</span><br><span class="line">  <span class="attribute">-webkit-box-direction</span>: normal;</span><br><span class="line">  <span class="attribute">-ms-flex-direction</span>: row;</span><br><span class="line">  <span class="attribute">flex-direction</span>: row;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-ms-flex-wrap</span>: wrap;</span><br><span class="line">  <span class="attribute">flex-wrap</span>: wrap;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-webkit-box-pack</span>: start;</span><br><span class="line">  <span class="attribute">-ms-flex-pack</span>: start;</span><br><span class="line">  <span class="attribute">justify-content</span>: flex-start;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-webkit-box-align</span>: baseline;</span><br><span class="line">  <span class="attribute">-ms-flex-align</span>: baseline;</span><br><span class="line">  <span class="attribute">align-items</span>: baseline;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-ms-flex-line-pack</span>: center;</span><br><span class="line">  <span class="attribute">align-content</span>: center;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.item</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-box-ordinal-group</span>: <span class="number">3</span>;</span><br><span class="line">  <span class="attribute">-ms-flex-order</span>: <span class="number">2</span>;</span><br><span class="line">  <span class="attribute">order</span>: <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-webkit-box-flex</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">-ms-flex-positive</span>: <span class="number">1</span>;</span><br><span class="line">  <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-ms-flex-negative</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">flex-shrink</span>: <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-ms-flex-preferred-size</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">flex-basis</span>: <span class="number">30px</span>;</span><br><span class="line"></span><br><span class="line">  <span class="attribute">-ms-flex</span>: auto;</span><br><span class="line">  <span class="attribute">flex</span>: auto;</span><br><span class="line">  <span class="attribute">-ms-flex-item-align</span>: center;</span><br><span class="line">  <span class="attribute">align-self</span>: center;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>flex的兼容</p>
 <ul>
 <li>安卓4+</li>
 <li>IOS6+</li>
-<li>IE 10 </li>
+<li>IE 10</li>
 </ul>
 
   </section>

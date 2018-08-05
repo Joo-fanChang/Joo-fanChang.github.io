@@ -51,7 +51,8 @@
 
   <section class="article-entry">
     <p>在web系统中，点击退出后跳转某个页面，但是如果点击浏览器的后退，却发现因为浏览器的缓存竟然还是可以回到原来的系统页面。虽然已没有任何权限操作。但是还是不能让用户可以看到系统页面，而是跳转到登录页面。</p>
-<p>这就需要在请求系统页面的时候，在响应头里加上<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctx.set(&#123;</span><br><span class="line">  <span class="string">'Cache-Control'</span>: <span class="string">'no-cache,no-store'</span>,</span><br><span class="line">  Pragma: <span class="string">'no-cache'</span>,</span><br><span class="line">  Expires: <span class="number">-1</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这就需要在请求系统页面的时候，在响应头里加上
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ctx.set(&#123;</span><br><span class="line">  <span class="string">'Cache-Control'</span>: <span class="string">'no-cache,no-store'</span>,</span><br><span class="line">  Pragma: <span class="string">'no-cache'</span>,</span><br><span class="line">  Expires: <span class="number">-1</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
 <p>这样就可以禁止页面缓存，确保每次打开的时候，都会去服务器请求一次</p>
 <p><a href="https://github.com/Joo-fanChang/some_docs/blob/master/koa/server5.js" target="_blank" rel="noopener">代码示例</a></p>
 

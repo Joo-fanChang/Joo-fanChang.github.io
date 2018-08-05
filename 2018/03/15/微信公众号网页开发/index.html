@@ -50,11 +50,21 @@
   </section>
 
   <section class="article-entry">
-    <h2 id="1-JS"><a href="#1-JS" class="headerlink" title="1 JS"></a>1 JS</h2><p>微信网页是指利用微信提供的功能，方便地让我们完成交互的过程。<br>比如调用微信的扫一扫，录音，上传文件等等…<br>而这些，都是需要微信方确认公众号方-用户之间的关系之后后允许使用的。</p>
-<h3 id="1-1-自己开发的网页-JS-SDK"><a href="#1-1-自己开发的网页-JS-SDK" class="headerlink" title="1.1 自己开发的网页(JS-SDK)"></a>1.1 自己开发的网页(JS-SDK)</h3><p><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421141115" target="_blank" rel="noopener">官方文档</a><br>这里是指公众号开发自己的网页。开发时，引入微信提供的JS-SDK文件。因为是前端用的，其实也就是一个js文件，官方还提供一份在线引入的js（<a href="http://res.wx.qq.com/open/js/jweixin-1.2.0.js）。这个同时也支持amd/cmd/es6模块引入方案。" target="_blank" rel="noopener">http://res.wx.qq.com/open/js/jweixin-1.2.0.js）。这个同时也支持amd/cmd/es6模块引入方案。</a></p>
-<h4 id="1-1-1-前端配置"><a href="#1-1-1-前端配置" class="headerlink" title="1.1.1 前端配置"></a>1.1.1 前端配置</h4><p>在使用<code>js-sdk</code>提供的<code>wx.getLocation</code>等方法时，需要在当前页面使用<code>wx.config</code>配置一下。配置完成后，使用的方法需要在<code>wx.ready</code>中使用<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wx.ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>再详细写一下<code>wx.config</code><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wx.config(&#123;</span><br><span class="line">    debug: <span class="literal">true</span>, <span class="comment">// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。</span></span><br><span class="line">    appId: <span class="string">''</span>, <span class="comment">// 必填，公众号的唯一标识</span></span><br><span class="line">    timestamp: , <span class="comment">// 必填，生成签名的时间戳</span></span><br><span class="line">    nonceStr: <span class="string">''</span>, <span class="comment">// 必填，生成签名的随机串</span></span><br><span class="line">    signature: <span class="string">''</span>,<span class="comment">// 必填，签名，见附录1</span></span><br><span class="line">    jsApiList: [] <span class="comment">// 必填，需要使用的JS接口列表，所有JS接口列表见附录2</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<p>里面的参数基本都是由后台返回来的，后台是计算<code>signature</code>的过程<br>比如有一个<code>/getconfiginfo</code>的接口<br>请求参数为</p>
+    <h2>1 JS</h2>
+<p>微信网页是指利用微信提供的功能，方便地让我们完成交互的过程。
+比如调用微信的扫一扫，录音，上传文件等等...
+而这些，都是需要微信方确认公众号方-用户之间的关系之后后允许使用的。</p>
+<h3>1.1 自己开发的网页(JS-SDK)</h3>
+<p><a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421141115" target="_blank" rel="noopener">官方文档</a>
+这里是指公众号开发自己的网页。开发时，引入微信提供的JS-SDK文件。因为是前端用的，其实也就是一个js文件，官方还提供一份在线引入的js（http://res.wx.qq.com/open/js/jweixin-1.2.0.js）。这个同时也支持amd/cmd/es6模块引入方案。</p>
+<h4>1.1.1 前端配置</h4>
+<p>在使用<code>js-sdk</code>提供的<code>wx.getLocation</code>等方法时，需要在当前页面使用<code>wx.config</code>配置一下。配置完成后，使用的方法需要在<code>wx.ready</code>中使用
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wx.ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// config信息验证后会执行ready方法，所有接口调用都必须在config接口获得结果之后，config是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在ready函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在ready函数中。</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>再详细写一下<code>wx.config</code>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">wx.config(&#123;</span><br><span class="line">    debug: <span class="literal">true</span>, <span class="comment">// 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。</span></span><br><span class="line">    appId: <span class="string">''</span>, <span class="comment">// 必填，公众号的唯一标识</span></span><br><span class="line">    timestamp: , <span class="comment">// 必填，生成签名的时间戳</span></span><br><span class="line">    nonceStr: <span class="string">''</span>, <span class="comment">// 必填，生成签名的随机串</span></span><br><span class="line">    signature: <span class="string">''</span>,<span class="comment">// 必填，签名，见附录1</span></span><br><span class="line">    jsApiList: [] <span class="comment">// 必填，需要使用的JS接口列表，所有JS接口列表见附录2</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>里面的参数基本都是由后台返回来的，后台是计算<code>signature</code>的过程
+比如有一个<code>/getconfiginfo</code>的接口
+请求参数为</p>
 <table>
 <thead>
 <tr>
@@ -96,22 +106,30 @@
 </tr>
 </tbody>
 </table>
-<p>最后<code>jsApiList</code>是你想在网页中想要调用什么方法，比如<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	jsApiList: [<span class="string">'getLocation'</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h4 id="1-1-2-后端配置"><a href="#1-1-2-后端配置" class="headerlink" title="1.1.2 后端配置"></a>1.1.2 后端配置</h4><p>后台计算签名的方法，网上可以找到很多，其大体的思路如下：<br>前台可以不看这部分，后台看了也没啥用-_-!!</p>
+<p>最后<code>jsApiList</code>是你想在网页中想要调用什么方法，比如
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	jsApiList: [<span class="string">'getLocation'</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4>1.1.2 后端配置</h4>
+<p>后台计算签名的方法，网上可以找到很多，其大体的思路如下：
+前台可以不看这部分，后台看了也没啥用-_-!!</p>
 <ol>
 <li>获取<code>access_token</code>，方法，调用<code>https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=你公众号的appid&amp;secret=你公众号的secret</code>接口，就可以获取<code>access_token</code>，说明：<code>secret</code>是隐藏的，如果忘了需要重置；</li>
 <li>获取<code>jsapi_ticket</code>，方法，调用<code>https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token=上一步获取的access_token&amp;type=jsapi</code>，说明：<code>access_token</code>和<code>jsapi_ticket</code>这两个参数都是有2个小时（7200秒）的有效期，官方建议，后台做好两个小时的缓存，快到时间时，再去获取一下这两个参数；</li>
-<li>通过以下几个参数，通过一定的算法获取签名（signature）<ul>
+<li>通过以下几个参数，通过一定的算法获取签名（signature）
+<ul>
 <li><code>jsapi_ticket</code>：由上步获取</li>
 <li><code>timestamp</code>：时间戳，由于前台也需要，需要通过接口返回给前端</li>
 <li><code>nonceStr</code>：随机字符串，作用和上面的时间戳一样</li>
-<li><code>url</code>：当前网页的url，由前台通过接口得到<br>签名生成规则如下：参与签名的字段包括noncestr（随机字符串）, 有效的jsapi_ticket, timestamp（时间戳）, url（当前网页的URL，不包含#及其后面部分） 。对所有待签名参数按照字段名的ASCII 码从小到大排序（字典序）后，使用URL键值对的格式（即key1=value1&amp;key2=value2…）拼接成字符串string1。这里需要注意的是所有参数名均为小写字符。对string1作sha1加密，字段名和字段值都采用原始值，不进行URL 转义。<br>即signature=sha1(string1)。 示例：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">noncestr=Wm3WZYTPz0wzccnW</span><br><span class="line">jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qg</span><br><span class="line">timestamp=<span class="number">1414587457</span></span><br><span class="line">url=http:<span class="comment">//mp.weixin.qq.com?params=value</span></span><br></pre></td></tr></table></figure>
-</li>
+<li><code>url</code>：当前网页的url，由前台通过接口得到
+签名生成规则如下：参与签名的字段包括noncestr（随机字符串）, 有效的jsapi_ticket, timestamp（时间戳）, url（当前网页的URL，不包含#及其后面部分） 。对所有待签名参数按照字段名的ASCII 码从小到大排序（字典序）后，使用URL键值对的格式（即key1=value1&amp;key2=value2…）拼接成字符串string1。这里需要注意的是所有参数名均为小写字符。对string1作sha1加密，字段名和字段值都采用原始值，不进行URL 转义。
+即signature=sha1(string1)。 示例：
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">noncestr=Wm3WZYTPz0wzccnW</span><br><span class="line">jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qg</span><br><span class="line">timestamp=<span class="number">1414587457</span></span><br><span class="line">url=http:<span class="comment">//mp.weixin.qq.com?params=value</span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
 </ol>
-<p>步骤1. 对所有待签名参数按照字段名的ASCII 码从小到大排序（字典序）后，使用URL键值对的格式（即key1=value1&amp;key2=value2…）拼接成字符串string1：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qg&amp;noncestr=Wm3WZYTPz0wzccnW×tamp=<span class="number">1414587457</span>&amp;url=http:<span class="comment">//mp.weixin.qq.com?params=value</span></span><br></pre></td></tr></table></figure></p>
-<p>步骤2. 对string1进行sha1签名，得到signature：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>f9de62fce790f9a083d5c99e95740ceb90c27ed</span><br></pre></td></tr></table></figure></p>
+<p>步骤1. 对所有待签名参数按照字段名的ASCII 码从小到大排序（字典序）后，使用URL键值对的格式（即key1=value1&amp;key2=value2…）拼接成字符串string1：
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jsapi_ticket=sM4AOVdWfPE4DxkXGEs8VMCPGGVi4C3VM0P37wVUCFvkVAy_90u5h9nbSlYy3-Sl-HhTdfl2fzFy1AOcHKP7qg&amp;noncestr=Wm3WZYTPz0wzccnW×tamp=<span class="number">1414587457</span>&amp;url=http:<span class="comment">//mp.weixin.qq.com?params=value</span></span><br></pre></td></tr></table></figure></p>
+<p>步骤2. 对string1进行sha1签名，得到signature：
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>f9de62fce790f9a083d5c99e95740ceb90c27ed</span><br></pre></td></tr></table></figure></p>
 <p>注意事项</p>
 <ol>
 <li>签名用的noncestr和timestamp必须与wx.config中的nonceStr和timestamp相同。</li>
@@ -126,19 +144,64 @@
 <li>随机字符串</li>
 </ul>
 <p>前端拿到这些参数后，通过<code>wx.config</code>就可以愉快地开发了。</p>
-<h3 id="1-2使用第三方的网页"><a href="#1-2使用第三方的网页" class="headerlink" title="1.2使用第三方的网页"></a>1.2使用第三方的网页</h3><blockquote>
+<h3>1.2使用第三方的网页</h3>
+<blockquote>
 <p>如果用户在微信客户端中访问第三方网页，公众号可以通过微信网页授权机制，来获取用户基本信息，进而实现业务逻辑。</p>
 </blockquote>
-<p>调用第三方网页的套路<br>直接跳转到请求权限的页面（这个页面的路径带着一个redirect_uri的参数，这个地址就是用户确认权限后，跳转的页面，就是我们处理业务的页面了）</p>
-<p>然后，这个路径中还有更多的参数，先看一下列表<br>|参数|是否必须|说明|<br>|–|–|–|<br>|appid|是|公众号唯一标识|<br>|redirect_uri|是|授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理|<br>|response_type|是|返回类型，请填写code，固定值，直接写code就可以了|<br>|scope|是|应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且， 即使在未关注的情况下，只要用户授权，也能获取其信息 ）|<br>|state|否|重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节|<br>|#wechat_redirect|是|无论直接打开还是做页面302重定向时候，必须带此参数|</p>
+<p>调用第三方网页的套路
+直接跳转到请求权限的页面（这个页面的路径带着一个redirect_uri的参数，这个地址就是用户确认权限后，跳转的页面，就是我们处理业务的页面了）</p>
+<p>然后，这个路径中还有更多的参数，先看一下列表</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>appid</td>
+<td>是</td>
+<td>公众号唯一标识</td>
+</tr>
+<tr>
+<td>redirect_uri</td>
+<td>是</td>
+<td>授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理</td>
+</tr>
+<tr>
+<td>response_type</td>
+<td>是</td>
+<td>返回类型，请填写code，固定值，直接写code就可以了</td>
+</tr>
+<tr>
+<td>scope</td>
+<td>是</td>
+<td>应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过openid拿到昵称、性别、所在地。并且， 即使在未关注的情况下，只要用户授权，也能获取其信息 ）</td>
+</tr>
+<tr>
+<td>state</td>
+<td>否</td>
+<td>重定向后会带上state参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节</td>
+</tr>
+<tr>
+<td>#wechat_redirect</td>
+<td>是</td>
+<td>无论直接打开还是做页面302重定向时候，必须带此参数</td>
+</tr>
+</tbody>
+</table>
 <p>看一下其他参数，主要就是scope，只需要openid是base就可以了，如果还需要其他信息就得使用userinfo的scope了。</p>
 <p>提示：使用这个必须公众号是认证的</p>
-<h2 id="2-CSS"><a href="#2-CSS" class="headerlink" title="2 CSS"></a>2 CSS</h2><p>微信提供了套符合微信原生的UI框架</p>
+<h2>2 CSS</h2>
+<p>微信提供了套符合微信原生的UI框架</p>
 <p>WeUI 是一套同微信原生视觉体验一致的基础样式库，由微信官方设计团队为微信内网页和微信小程序量身设计，令用户的使用感知更加统一。在微信网页或小程序中使用 WeUI，有如下优势：</p>
 <p>1.同微信客户端一致的视觉效果，令所有微信用户都能更容易地使用你的网站或小程序</p>
 <p>2.便捷获取快速使用，降低开发和设计成本</p>
 <p>3.微信设计团队精心打造，清晰明确，简洁大方</p>
-<p>该样式库目前包含表单、基础组件、操作反馈、导航相关、搜索相关、层级规范等内容，已经在GitHub上开源。访问<a href="http://weui.io" target="_blank" rel="noopener">这里</a><br>或微信扫码即可预览。</p>
+<p>该样式库目前包含表单、基础组件、操作反馈、导航相关、搜索相关、层级规范等内容，已经在GitHub上开源。访问<a href="http://weui.io" target="_blank" rel="noopener">这里</a>
+或微信扫码即可预览。</p>
 
   </section>
 </article>
