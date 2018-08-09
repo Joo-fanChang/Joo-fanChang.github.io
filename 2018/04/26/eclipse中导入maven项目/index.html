@@ -51,22 +51,14 @@
 
   <section class="article-entry">
     <ol>
-<li>
-<p>配置好jdk和maven</p>
+<li>配置好jdk和maven</li>
+<li>导入maven项目</li>
+<li><p>公司内部都有<code>setting.xml</code>文件，指引到哪里下载依赖。需要修改</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>本地下载目录<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure>
 </li>
-<li>
-<p>导入maven项目</p>
+<li><p><code>maven update</code></p>
 </li>
-<li>
-<p>公司内部都有<code>setting.xml</code>文件，指引到哪里下载依赖。需要修改
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">localRepository</span>&gt;</span>本地下载目录<span class="tag">&lt;/<span class="name">localRepository</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-</li>
-<li>
-<p><code>maven update</code></p>
-</li>
-<li>
-<p><code>maven install</code></p>
-</li>
+<li><code>maven install</code></li>
 </ol>
 
   </section>

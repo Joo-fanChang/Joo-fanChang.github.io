@@ -51,21 +51,15 @@
 
   <section class="article-entry">
     <p>在使用ssh key之前先要确保电脑上有生成的ssh key。没有的话就生成一个，如果有的话就直接将公钥放到<code>github</code>或者<code>gitlab</code>上</p>
-<h2>查看</h2>
-<p>如果使用<code>windows</code>系统自带的<code>cmd</code>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span> %userprofile%\.ssh\id_rsa.pub</span><br></pre></td></tr></table></figure></p>
-<p>如果使用<code>git bash</code>工具或者<code>macOS</code>或者<code>powershell</code>的话
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure></p>
+<h2 id="查看"><a href="#查看" class="headerlink" title="查看"></a>查看</h2><p>如果使用<code>windows</code>系统自带的<code>cmd</code><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span> %userprofile%\.ssh\id_rsa.pub</span><br></pre></td></tr></table></figure></p>
+<p>如果使用<code>git bash</code>工具或者<code>macOS</code>或者<code>powershell</code>的话<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure></p>
 <p>如果有的话就是这个样子的</p>
-<p><img src="/2018/04/07/git%20ssh%20key/git01.png"></p>
+<img src="/2018/04/07/git%20ssh%20key/git01.png">
 <p>其中以<code>ssh-rsa</code>开头，以创建ssh key的邮箱结尾</p>
 <p>如果电脑中已经有的话，可以跳过生成过程，直接到使用，没有的话就看生成的过程</p>
-<h2>生成</h2>
-<p>windows系统建议使用git bash，macOS就随意
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"changzhn@yonyou.com"</span> -b 4096</span><br></pre></td></tr></table></figure></p>
+<h2 id="生成"><a href="#生成" class="headerlink" title="生成"></a>生成</h2><p>windows系统建议使用git bash，macOS就随意<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">"changzhn@yonyou.com"</span> -b 4096</span><br></pre></td></tr></table></figure></p>
 <p>这个邮箱要替换成自己的邮箱</p>
-<h2>使用</h2>
-<p><img src="/2018/04/07/git%20ssh%20key/git02.png"></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><img src="/2018/04/07/git%20ssh%20key/git02.png">
 <p>无论是github还是gitlab都可以在settings的ssh key选项中找到上面这个选项，直接将自己的ssh key复制进去就可以了</p>
 
   </section>

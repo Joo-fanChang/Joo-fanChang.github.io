@@ -50,13 +50,11 @@
   </section>
 
   <section class="article-entry">
-    <p>最近在做项目的时候，需要在页面生成二维码，然后下载下来。
-不管用哪个轮子，生成二维码最终都是canvas的。</p>
-<p>在标准浏览器下可以使用
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> imgUrl = canvas.toDataURL(<span class="string">'image/png'</span>); <span class="comment">// 转成base64</span></span><br></pre></td></tr></table></figure></p>
+    <p>最近在做项目的时候，需要在页面生成二维码，然后下载下来。<br>不管用哪个轮子，生成二维码最终都是canvas的。</p>
+<p>在标准浏览器下可以使用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> imgUrl = canvas.toDataURL(<span class="string">'image/png'</span>); <span class="comment">// 转成base64</span></span><br></pre></td></tr></table></figure></p>
 <p>然后将结果给a标签，下载</p>
 <p>但是在IE下是不支持的</p>
-<p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> blob = canvas.msToBlob();</span><br><span class="line">navigator.msSaveBlob(blob, <span class="string">'文件名称.png'</span>);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> blob = canvas.msToBlob();</span><br><span class="line">navigator.msSaveBlob(blob, <span class="string">'文件名称.png'</span>);</span><br></pre></td></tr></table></figure>
 <p>这样就可以直接愉快的下载了</p>
 
   </section>
