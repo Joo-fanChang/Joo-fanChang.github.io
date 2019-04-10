@@ -5,9 +5,10 @@ tags: js react redux
 categories: web
 ---
 
-# redux的实现
+# 面试之redux的实现
 
-> 为啥使用redux略过...
+> 为啥使用redux略过... <br/>
+> [demo地址](https://github.com/Joo-fanChang/react-app/tree/redux)
 
 一般项目中使用redux时，会和react-redux配合使用，如果不使用react-redux时，redux也可以单独工作，使用react-redux会简化一些操作
 
@@ -67,6 +68,33 @@ function createStore(reducer, prePayload) {
     getState,
     dispatch,
     subscribe,
+  }
+}
+```
+
+## combineReducer
+这个函数的意义是可以整合reducer函数，这样可以方便分模块定义redux
+实现原理就是定义一个顶级对象，使用`key`来区分（key是传入`combineReducers`的对象的key），当派发一个`action`时，循环所有的`reducer`函数，更新所有的模块
+
+```js
+export default function combineReducers(reducers) {
+  const reducerKeys = Object.keys(reducers);
+
+  return function combine(state = {}, action) {
+
+    let nextState = {};
+    let isChanged = false;
+
+    for(let i = 0; i < reducerKeys.length; i++) {
+      let key = reducerKeys[i];
+      let reducer = reducers[key];
+      let stateForKey = state[key];
+
+      nextState[key] = reducer(stateForKey, action);
+      isChanged = isChanged || nextState !== state;
+    }
+
+    return isChanged ? nextState : state;
   }
 }
 ```
