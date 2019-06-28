@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>nginx | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/./categories/web">web</a>
+    
+  
+    
+      <a href="/./categories/微信">微信</a>
+    
+  
+    
+      <a href="/./categories/git">git</a>
+    
+  
+    
+      <a href="/./categories/服务端">服务端</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2019/06/28/nginx/">nginx</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">June 28 2019</p>
+  </section>
+
+  <section class="article-entry">
+    <h2 id="1-0-mac安装"><a href="#1-0-mac安装" class="headerlink" title="1.0 mac安装"></a>1.0 mac安装</h2><ol>
+<li>brew install nginx</li>
+<li><p>如果出现错误让手动 brew link nginx，并且输入出提示 /usr/local/share/man/man8 is not writable.则输入以下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R $(whoami):admin /usr/local/share/man/man8</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>conf的本地路径在<code>/usr/local/etc/nginx/nginx.conf</code></p>
+</li>
+</ol>
+<h2 id="2-0-命令"><a href="#2-0-命令" class="headerlink" title="2.0 命令"></a>2.0 命令</h2><h3 id="2-1-没有link成功"><a href="#2-1-没有link成功" class="headerlink" title="2.1 没有link成功"></a>2.1 没有link成功</h3><ol>
+<li>brew services start nginx</li>
+<li>brew services stop nginx</li>
+<li>brew services reload nginx</li>
+</ol>
+<h3 id="2-2-link成功后"><a href="#2-2-link成功后" class="headerlink" title="2.2 link成功后"></a>2.2 link成功后</h3><ol>
+<li>nginx -t 检查配置文件是否正确<br>nginx -t -c /path/to/nginx.conf</li>
+<li>nginx 启动nginx （以<code>/usr/local/etc/nginx/nginx.conf</code>为配置文件 ）</li>
+<li>nginx -s stop 停止</li>
+<li>nginx -s reload 重启</li>
+</ol>
+<h2 id="3-0-配置文件"><a href="#3-0-配置文件" class="headerlink" title="3.0 配置文件"></a>3.0 配置文件</h2><table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$host</td>
+<td>请求信息中的Host，如果请求中没有Host行，则等于设置的服务器名</td>
+</tr>
+<tr>
+<td>$request_method</td>
+<td>客户端请求类型，如GET、POST</td>
+</tr>
+<tr>
+<td>$remote_addr</td>
+<td>客户端的IP地址</td>
+</tr>
+<tr>
+<td>$args</td>
+<td>请求中的参数</td>
+</tr>
+<tr>
+<td>$content_length</td>
+<td>请求头中的Content-length字段</td>
+</tr>
+<tr>
+<td>$http_user_agent</td>
+<td>客户端agent信息</td>
+</tr>
+<tr>
+<td>$http_cookie</td>
+<td>客户端cookie信息</td>
+</tr>
+<tr>
+<td>$remote_addr</td>
+<td>客户端的IP地址</td>
+</tr>
+<tr>
+<td>$remote_port</td>
+<td>客户端的端口</td>
+</tr>
+<tr>
+<td>$server_protocol</td>
+<td>请求使用的协议，如HTTP/1.0、·HTTP/1.1</td>
+</tr>
+<tr>
+<td>$server_addr</td>
+<td>服务器地址</td>
+</tr>
+<tr>
+<td>$server_name</td>
+<td>服务器名称</td>
+</tr>
+<tr>
+<td>$server_port`</td>
+<td>服务器的端口号</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3-1-错误日志"><a href="#3-1-错误日志" class="headerlink" title="3.1 错误日志"></a>3.1 错误日志</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error_log  /Users/changzhn/repo/nginx/logs/error.log info;</span><br></pre></td></tr></table></figure>
+<p>级别：常见的错误日志的级别有 debug|info|notice|warn|error|crit|alert|emerg 级别越高，记录的信息越少<br>生产场景一般是 warn|error|crit三个级别</p>
+<h3 id="3-2-自定义静态文件目录位置"><a href="#3-2-自定义静态文件目录位置" class="headerlink" title="3.2 自定义静态文件目录位置"></a>3.2 自定义静态文件目录位置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">  root   /Users/changzhn/repo/nginx/html;</span><br><span class="line"></span><br><span class="line">  # 用于配合 browserHistory使用</span><br><span class="line">  try_files $uri $uri/ /index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>并且匹配其他路由匹配不到时指定返回页面，如果是SPA则返回index.html，如果是其他多页应用，可以返回指定的404页面</p>
+<h3 id="3-3-根据不同的userAgent跳转到pc页面还是mobile页面"><a href="#3-3-根据不同的userAgent跳转到pc页面还是mobile页面" class="headerlink" title="3.3 根据不同的userAgent跳转到pc页面还是mobile页面"></a>3.3 根据不同的userAgent跳转到pc页面还是mobile页面</h3><p>User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36</p>
+<p>User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> location / &#123;</span><br><span class="line">    if ( $http_user_agent ~ &quot;(MIDP)|(WAP)|(UP.Browser)|(Smartphone)|(Obigo)|(Mobile)|(AU.Browser)|(wxd.Mms)|(WxdB.Browser)|(CLDC)|(UP.Link)|(KM.Browser)|(UCWEB)|(SEMC-Browser)|(Mini)|(Symbian)|(Palm)|(Nokia)|(Panasonic)|(MOT-)|(SonyEricsson)|(NEC-)|(Alcatel)|(Ericsson)|(BENQ)|(BenQ)|(Amoisonic)|(Amoi-)|(Capitel)|(PHILIPS)|(SAMSUNG)|(Lenovo)|(Mitsu)|(Motorola)|(SHARP)|(WAPPER)|(LG-)|(LG/)|(EG900)|(CECT)|(Compal)|(kejian)|(Bird)|(BIRD)|(G900/V1.0)|(Arima)|(CTL)|(TDG)|(Daxian)|(DAXIAN)|(DBTEL)|(Eastcom)|(EASTCOM)|(PANTECH)|(Dopod)|(Haier)|(HAIER)|(KONKA)|(KEJIAN)|(LENOVO)|(Soutec)|(SOUTEC)|(SAGEM)|(SEC-)|(SED-)|(EMOL-)|(INNO55)|(ZTE)|(iPhone)|(Android)|(Windows CE)|(Wget)|(Java)|(curl)|(Opera)&quot; )</span><br><span class="line">        &#123;</span><br><span class="line">            #跳转到 m.duweixin.net</span><br><span class="line">            rewrite ^.+ /mobile last; </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    # 用于配合 browserHistory使用</span><br><span class="line">    try_files $uri $uri/ /index.html;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location /mobile &#123;</span><br><span class="line">    # 手机页面</span><br><span class="line">    try_files $uri /mobile.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TIPS：大括号里面最后都要加分号，注释最好写到每行的上面</p>
+<h3 id="3-4-gzip压缩"><a href="#3-4-gzip压缩" class="headerlink" title="3.4 gzip压缩"></a>3.4 gzip压缩</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    # gzip config</span><br><span class="line">    gzip on;</span><br><span class="line">    gzip_min_length 1k;</span><br><span class="line">    gzip_comp_level 9;</span><br><span class="line">    gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;</span><br><span class="line">    # 根据浏览器是否支持压缩</span><br><span class="line">    gzip_vary on;</span><br><span class="line">    # ie1-6不要压缩</span><br><span class="line">    gzip_disable &quot;MSIE [1-6]\.&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-5-location"><a href="#3-5-location" class="headerlink" title="3.5 location"></a>3.5 location</h3><p>匹配的几个规则</p>
+<ul>
+<li>~ 表示正则匹配，区分大小写</li>
+<li>~* 表示正则匹配，不区分大小写</li>
+<li>^~ 表示普通字符匹配，如果该选项匹配则不匹配其他选项，一般用来匹配目录</li>
+<li>= 精确匹配</li>
+<li>@ </li>
+</ul>
+<p>location匹配的优先级别(与书写的顺序没有关系)</p>
+<ol>
+<li>= 精确匹配会第一个被处理。如果发现精确匹配，nginx停止搜索其他匹配。</li>
+<li>普通字符匹配，正则表达式规则和长的块规则将被优先和查询匹配，也就是说如果该项匹配还需去看有没有正则表达式匹配和更长的匹配。</li>
+<li>^~ 则只匹配该规则，nginx停止搜索其他匹配，否则nginx会继续处理其他location指令。</li>
+<li>最后匹配理带有”~”和”~*”的指令，如果找到相应的匹配，则nginx停止搜索其他匹配；当没有正则表达式或者没有正则表达式被匹配的情况下，那么匹配程度最高的逐字匹配指令会被使用。</li>
+</ol>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2019/06/28/nginx/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>
