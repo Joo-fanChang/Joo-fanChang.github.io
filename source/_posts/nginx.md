@@ -118,3 +118,65 @@ location匹配的优先级别(与书写的顺序没有关系)
 2. 普通字符匹配，正则表达式规则和长的块规则将被优先和查询匹配，也就是说如果该项匹配还需去看有没有正则表达式匹配和更长的匹配。
 3. ^~ 则只匹配该规则，nginx停止搜索其他匹配，否则nginx会继续处理其他location指令。
 4. 最后匹配理带有"~"和"~*"的指令，如果找到相应的匹配，则nginx停止搜索其他匹配；当没有正则表达式或者没有正则表达式被匹配的情况下，那么匹配程度最高的逐字匹配指令会被使用。
+
+### 3.5.1
+location / {
+    root /usr/share/nginx/html;
+}
+
+
+### 3.5.2
+clientUrl: 
+```
+/api/get1
+```
+nginx:
+```
+location /api {
+    proxy_pass http://proxy.com;
+}
+```
+result:
+请求的服务器的真实路径为 `http://proxy.com/get1`
+tip:
+- 如果location后面的路径写成 `/api/` 那么proxy_pass的路径要写成 `http://proxy.com/`，相当于把匹配的路径截取然后拼接到代理地址上
+
+
+tip:
+- root后面的路径加不加`/`都是一样的效果，就等同于 `/usr/share/nignx/html/;`
+- 比如：
+clientUrl:
+```
+hello-abc/get1
+hello-bcd/get2
+```
+nginx:
+```conf
+location /hello {
+    proxy_pass http://proxy.com/hello;
+}
+```
+
+### 3.5.3
+clientUrl:
+```
+/api/get1
+/api/get2
+```
+nginx:
+```conf
+location /api {
+    # 错误的代理地址
+    proxy_pass https://easy-mock.com/mock/5b0f43793ba2c72d1aec2dbf/example/xxx;
+}
+
+location =/api/get2 {
+    proxy_pass https://easy-mock.com/mock/5b0f43793ba2c72d1aec2dbf/example/get2;
+}
+```
+result:
+1. get1失败
+2. get2成功
+
+说明：
+使用了`=`优先级比普通匹配要高，所以`/api/get2`走的是下面的正确代码的匹配。
