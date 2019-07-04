@@ -155,6 +155,28 @@
 <li>^~ 则只匹配该规则，nginx停止搜索其他匹配，否则nginx会继续处理其他location指令。</li>
 <li>最后匹配理带有”~”和”~*”的指令，如果找到相应的匹配，则nginx停止搜索其他匹配；当没有正则表达式或者没有正则表达式被匹配的情况下，那么匹配程度最高的逐字匹配指令会被使用。</li>
 </ol>
+<h3 id="3-5-1"><a href="#3-5-1" class="headerlink" title="3.5.1"></a>3.5.1</h3><p>location / {<br>    root /usr/share/nginx/html;<br>}</p>
+<h3 id="3-5-2"><a href="#3-5-2" class="headerlink" title="3.5.2"></a>3.5.2</h3><p>clientUrl:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/api/get1</span><br></pre></td></tr></table></figure></p>
+<p>nginx:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /api &#123;</span><br><span class="line">    proxy_pass http://proxy.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>result:<br>请求的服务器的真实路径为 <code>http://proxy.com/get1</code><br>tip:</p>
+<ul>
+<li>如果location后面的路径写成 <code>/api/</code> 那么proxy_pass的路径要写成 <code>http://proxy.com/</code>，相当于把匹配的路径截取然后拼接到代理地址上</li>
+</ul>
+<p>tip:</p>
+<ul>
+<li>root后面的路径加不加<code>/</code>都是一样的效果，就等同于 <code>/usr/share/nignx/html/;</code></li>
+<li>比如：<br>clientUrl:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello-abc/get1</span><br><span class="line">hello-bcd/get2</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>nginx:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /hello &#123;</span><br><span class="line">    proxy_pass http://proxy.com/hello;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-5-3"><a href="#3-5-3" class="headerlink" title="3.5.3"></a>3.5.3</h3><p>clientUrl:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/api/get1</span><br><span class="line">/api/get2</span><br></pre></td></tr></table></figure></p>
+<p>nginx:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">location /api &#123;</span><br><span class="line">    # 错误的代理地址</span><br><span class="line">    proxy_pass https://easy-mock.com/mock/5b0f43793ba2c72d1aec2dbf/example/xxx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location =/api/get2 &#123;</span><br><span class="line">    proxy_pass https://easy-mock.com/mock/5b0f43793ba2c72d1aec2dbf/example/get2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>result:</p>
+<ol>
+<li>get1失败</li>
+<li>get2成功</li>
+</ol>
+<p>说明：<br>使用了<code>=</code>优先级比普通匹配要高，所以<code>/api/get2</code>走的是下面的正确代码的匹配。</p>
 
   </section>
 </article>
