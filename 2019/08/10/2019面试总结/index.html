@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>2019面试总结 | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/./categories/web">web</a>
+    
+  
+    
+      <a href="/./categories/微信">微信</a>
+    
+  
+    
+      <a href="/./categories/git">git</a>
+    
+  
+    
+      <a href="/./categories/服务端">服务端</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2019/08/10/2019面试总结/">2019面试总结</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">August 10 2019</p>
+  </section>
+
+  <section class="article-entry">
+    <h1 id="2019面试总结"><a href="#2019面试总结" class="headerlink" title="2019面试总结"></a>2019面试总结</h1><h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><ol>
+<li>BFC的理解和应用<ul>
+<li>清除浮动的几种方式的原理是什么，为什么::after的clear: both可以清除浮动；</li>
+<li>块级元素上下margin合并如何取消；</li>
+</ul>
+</li>
+<li>垂直居中方式<ul>
+<li><code>{ position: absolute; left: 0; top: 0; right: 0; bottom: 0; margin: auto; }</code>原理是什么；</li>
+<li>在移动动端应该使用哪个，为什么</li>
+</ul>
+</li>
+</ol>
+<h2 id="JS基础"><a href="#JS基础" class="headerlink" title="JS基础"></a>JS基础</h2><ol>
+<li>原型链，继承方式及优缺点；</li>
+<li>作用域链，闭包应用，优缺点；</li>
+<li>原生xhr对象使用方法，及状态值；</li>
+<li>跨域方式，如果处理带cookie的跨域；</li>
+<li>实现call apply bind promise 防抖 节流；</li>
+<li>event loop；</li>
+</ol>
+<h2 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h2><ol>
+<li>webpack的原理；</li>
+<li>webpack的配置，如何异步加载；</li>
+<li>webpack的plugin loader，gulp的中间件自己实现过没有；</li>
+<li>函数式编程；</li>
+<li>设计模式，面向对象（继承、封装、多态）；</li>
+<li>git工作流；</li>
+<li>A同事误将1G的视频传到远程仓库，应该如何处理？(.git目录)；</li>
+<li>部署流程；</li>
+<li>typescript优缺点；</li>
+</ol>
+<h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><ol>
+<li>多对多的表如何设计；</li>
+</ol>
+<h2 id="http"><a href="#http" class="headerlink" title="http"></a>http</h2><ol>
+<li>http状态码；</li>
+<li>从浏览器地址栏回车到页面呈现发生了什么（http事务+浏览器渲染）；</li>
+<li>https是如何加密的；</li>
+</ol>
+<h2 id="React-Vue"><a href="#React-Vue" class="headerlink" title="React Vue"></a>React Vue</h2><ol>
+<li>两种框架的区别及联系；</li>
+<li>React生命周期（16.3之后的变化）及作用，哪些生命周期内可以使用setState方法；</li>
+<li>为什么virtual dom比真实dom效率更高；</li>
+<li>diff策略；</li>
+<li>为什么setState设置成异步的；</li>
+<li>高阶组件及应用；</li>
+<li>jsx是如何转变真真实dom到浏览器的；</li>
+<li>React合成事件（一个弹框，点击页面其他部分让其消失）；</li>
+<li>对flux架构的理解，以及redux和vuex实现有何种区别；</li>
+<li>实现redux，为什么reducer必须是纯函数；</li>
+<li>redux的中间件如何实现，redux-saga的源码；</li>
+<li>为何在项目中使用redux，使用context api代替是否可以；</li>
+<li>实现vue，将defineProperty替换成proxy有什么好处，如何实现computed；</li>
+</ol>
+<h2 id="算法相关"><a href="#算法相关" class="headerlink" title="算法相关"></a>算法相关</h2><ol>
+<li>数组求倒数第k个元素（不能使用<code>arr[arr.length - k]</code>）;</li>
+<li>一个已排序的数组，元素可能有重复，给定一个元素，求该元素第一次出现的位置；</li>
+<li>斐波那切数列，针对于递归的优化；</li>
+<li>一个数组找出两个元素和相等的索引；</li>
+</ol>
+<h2 id="管理"><a href="#管理" class="headerlink" title="管理"></a>管理</h2><ol>
+<li>平时如何进行开发的（prd -&gt; 上线）；</li>
+<li>拆分任务后，如何评估开发时间；</li>
+<li>如何为小伙伴分配工作，为什么把甲模块交给A开发，让A一直维护甲模块有什么弊端；</li>
+<li>有小伙伴要离职应该怎么办（主要工作如何交接安排）；</li>
+<li>如何管理一个团队；</li>
+<li>团队的规范应该如何推行；</li>
+</ol>
+<h2 id="生涯规划"><a href="#生涯规划" class="headerlink" title="生涯规划"></a>生涯规划</h2><ol>
+<li>从第一份工作开始，为什么选择这个公司，与此同事还有其他公司的offer吗</li>
+<li>为什么选择离职，换工作</li>
+<li>自己对生涯规划跨终端，全栈，管理等</li>
+<li>再选择公司是如何考虑的，工资，团队，公司背景等</li>
+</ol>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2019/08/10/2019面试总结/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>
