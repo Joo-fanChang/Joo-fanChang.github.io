@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>es6不为人知的知识.md | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/./categories/web">web</a>
+    
+  
+    
+      <a href="/./categories/微信">微信</a>
+    
+  
+    
+      <a href="/./categories/git">git</a>
+    
+  
+    
+      <a href="/./categories/服务端">服务端</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2019/09/04/es6不为人知的知识-md/">es6不为人知的知识.md</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">September 04 2019</p>
+  </section>
+
+  <section class="article-entry">
+    <h1 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h1><blockquote>
+<p>From <a href="http://es6.ruanyifeng.com" target="_blank" rel="noopener">阮一峰的 EcmaScript 6入门</a></p>
+</blockquote>
+<h2 id="1-let-const"><a href="#1-let-const" class="headerlink" title="1 let const"></a>1 let const</h2><h3 id="1-0-循环中的let"><a href="#1-0-循环中的let" class="headerlink" title="1.0 循环中的let"></a>1.0 循环中的let</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = [];</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;</span><br><span class="line">  a[i] = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(i);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">a[<span class="number">6</span>](); <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面代码中，变量i是let声明的，当前的i只在本轮循环有效，所以每一次循环的i其实都是一个新的变量，所以最后输出的是6。你可能会问，如果每一轮循环的变量i都是重新声明的，那它怎么知道上一轮循环的值，从而计算出本轮循环的值？这是因为 JavaScript 引擎内部会记住上一轮循环的值，初始化本轮的变量i时，就在上一轮循环的基础上进行计算。</p>
+</blockquote>
+<blockquote>
+<p>另外，for循环还有一个特别之处，就是设置循环变量的那部分是一个父作用域，而循环体内部是一个单独的子作用域。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span><br><span class="line">  <span class="keyword">let</span> i = <span class="string">'abc'</span>;</span><br><span class="line">  <span class="built_in">console</span>.log(i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// abc</span></span><br><span class="line"><span class="comment">// abc</span></span><br><span class="line"><span class="comment">// abc</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面代码正确运行，输出了 3 次abc。这表明函数内部的变量i与循环变量i不在同一个作用域，有各自单独的作用域。</p>
+</blockquote>
+<h3 id="1-1-如何将对象与变量绑定（不允许改变）"><a href="#1-1-如何将对象与变量绑定（不允许改变）" class="headerlink" title="1.1 如何将对象与变量绑定（不允许改变）"></a>1.1 如何将对象与变量绑定（不允许改变）</h3><p>使用<code>const</code>定义的对象还是可以增加属性，因为<code>const</code>保证的是变量与内存地址的绑定；</p>
+<p>可以使用<code>Object.freeze</code>将对象冻结；<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> foo = <span class="built_in">Object</span>.freeze(&#123;&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 常规模式时，下面一行不起作用；</span></span><br><span class="line"><span class="comment">// 严格模式时，该行会报错</span></span><br><span class="line">foo.prop = <span class="number">123</span>;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>除了将对象本身冻结，对象的属性也应该冻结。下面是一个将对象彻底冻结的函数。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> constantize = <span class="function">(<span class="params">obj</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">Object</span>.freeze(obj);</span><br><span class="line">  <span class="built_in">Object</span>.keys(obj).forEach( <span class="function">(<span class="params">key, i</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> ( <span class="keyword">typeof</span> obj[key] === <span class="string">'object'</span> ) &#123;</span><br><span class="line">      constantize( obj[key] );</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-ES6声明变量的6种方式"><a href="#1-2-ES6声明变量的6种方式" class="headerlink" title="1.2 ES6声明变量的6种方式"></a>1.2 ES6声明变量的6种方式</h3><ol>
+<li>var</li>
+<li>function</li>
+<li>let</li>
+<li>const</li>
+<li>import</li>
+<li>class</li>
+</ol>
+<h3 id="1-3-为什么let-const声明的变量不再是window的属性"><a href="#1-3-为什么let-const声明的变量不再是window的属性" class="headerlink" title="1.3 为什么let const声明的变量不再是window的属性"></a>1.3 为什么let const声明的变量不再是window的属性</h3><blockquote>
+<p>顶层对象的属性与全局变量挂钩，被认为是 JavaScript 语言最大的设计败笔之一。这样的设计带来了几个很大的问题，<br>首先是没法在编译时就报出变量未声明的错误，只有运行时才能知道（因为全局变量可能是顶层对象的属性创造的，而属性的创造是动态的）；<br>其次，程序员很容易不知不觉地就创建了全局变量（比如打字出错）；<br>最后，顶层对象的属性是到处可以读写的，这非常不利于模块化编程。<br>另一方面，window对象有实体含义，指的是浏览器的窗口对象，顶层对象是一个有实体含义的对象，也是不合适的。</p>
+</blockquote>
+<h2 id="2-变量的解构赋值"><a href="#2-变量的解构赋值" class="headerlink" title="2 变量的解构赋值"></a>2 变量的解构赋值</h2><h3 id="2-1-常见的解构赋值"><a href="#2-1-常见的解构赋值" class="headerlink" title="2.1 常见的解构赋值"></a>2.1 常见的解构赋值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str = <span class="string">'a_b'</span>;</span><br><span class="line"><span class="keyword">let</span> [ , b ] = str.split(<span class="string">'_'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> [x = <span class="number">1</span>] = [<span class="literal">null</span>];</span><br><span class="line">x <span class="comment">// null 只有严格等于 undefined 才能启用默认值</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-2-用途"><a href="#2-2-用途" class="headerlink" title="2.2 用途"></a>2.2 用途</h3><ol>
+<li><p>交换变量的值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">let</span> b = <span class="number">2</span>;</span><br><span class="line">[ a, b ] = [ b, a ];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数参数的默认值</p>
+</li>
+<li><p>map解构</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">map.set(<span class="string">'first'</span>, <span class="string">'hello'</span>);</span><br><span class="line">map.set(<span class="string">'second'</span>, <span class="string">'world'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> [key, value] <span class="keyword">of</span> map) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(key + <span class="string">" is "</span> + value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// first is hello</span></span><br><span class="line"><span class="comment">// second is world</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="3-字符串的扩展"><a href="#3-字符串的扩展" class="headerlink" title="3 字符串的扩展"></a>3 字符串的扩展</h2><h3 id="3-1-添加了遍历接口"><a href="#3-1-添加了遍历接口" class="headerlink" title="3.1 添加了遍历接口"></a>3.1 添加了遍历接口</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> codePoint <span class="keyword">of</span> <span class="string">'foo'</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(codePoint)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// "f"</span></span><br><span class="line"><span class="comment">// "o"</span></span><br><span class="line"><span class="comment">// "o"</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-2-扩展的实例的方法"><a href="#3-2-扩展的实例的方法" class="headerlink" title="3.2 扩展的实例的方法"></a>3.2 扩展的实例的方法</h3><ul>
+<li>startWith</li>
+<li>endWith</li>
+<li>includes</li>
+<li>padStart 补充字符串至指定的长度</li>
+<li>padEnd</li>
+<li>trimStart</li>
+<li>trimEnd</li>
+</ul>
+<h2 id="4-数值的扩展"><a href="#4-数值的扩展" class="headerlink" title="4 数值的扩展"></a>4 数值的扩展</h2><h3 id="4-1-将一些全局方法放到Number类上静态方法"><a href="#4-1-将一些全局方法放到Number类上静态方法" class="headerlink" title="4.1 将一些全局方法放到Number类上静态方法"></a>4.1 将一些全局方法放到Number类上静态方法</h3><p>或者增加了一些</p>
+<ul>
+<li>Number.isNaN</li>
+<li>Number.parseFloat</li>
+<li>Number.parseInt</li>
+<li>Number.isFinite</li>
+<li>Number.isInteger 判断是否为整数  </li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>.isInteger(<span class="number">25.0</span>) <span class="comment">// true</span></span><br><span class="line"><span class="built_in">Number</span>.isInteger(<span class="number">3.0000000000000002</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<p>常量</p>
+<ul>
+<li>Number.EPSILON js数字的最小精度</li>
+<li>Number.Max_SAFE_INTEGER 最大整数</li>
+<li>Number.MIN_SAFE_INTEGER 最小整数</li>
+</ul>
+<h3 id="4-2-Math的静态方法"><a href="#4-2-Math的静态方法" class="headerlink" title="4.2 Math的静态方法"></a>4.2 Math的静态方法</h3><ul>
+<li>Math.sign</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.sign(<span class="number">-5</span>) <span class="comment">// -1</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="number">5</span>) <span class="comment">// +1</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="number">0</span>) <span class="comment">// +0</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="number">-0</span>) <span class="comment">// -0</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="literal">NaN</span>) <span class="comment">// NaN</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="string">''</span>)  <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="literal">true</span>)  <span class="comment">// +1</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="literal">false</span>)  <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="literal">null</span>)  <span class="comment">// 0</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="string">'9'</span>)  <span class="comment">// +1</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="string">'foo'</span>)  <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Math</span>.sign()  <span class="comment">// NaN</span></span><br><span class="line"><span class="built_in">Math</span>.sign(<span class="literal">undefined</span>)  <span class="comment">// NaN</span></span><br></pre></td></tr></table></figure>
+<h2 id="5-函数"><a href="#5-函数" class="headerlink" title="5 函数"></a>5 函数</h2><h3 id="5-1-尾递归"><a href="#5-1-尾递归" class="headerlink" title="5.1 尾递归"></a>5.1 尾递归</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fibonacci</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> ( n &lt;= <span class="number">1</span> ) &#123;<span class="keyword">return</span> <span class="number">1</span>&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> Fibonacci(n - <span class="number">1</span>) + Fibonacci(n - <span class="number">2</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Fibonacci(<span class="number">10</span>) <span class="comment">// 89</span></span><br><span class="line">Fibonacci(<span class="number">100</span>) <span class="comment">// 超时</span></span><br><span class="line">Fibonacci(<span class="number">500</span>) <span class="comment">// 超时</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Fibonacci2</span> (<span class="params">n , ac1 = <span class="number">1</span> , ac2 = <span class="number">1</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span>( n &lt;= <span class="number">1</span> ) &#123;<span class="keyword">return</span> ac2&#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> Fibonacci2 (n - <span class="number">1</span>, ac2, ac1 + ac2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Fibonacci2(<span class="number">100</span>) <span class="comment">// 573147844013817200000</span></span><br><span class="line">Fibonacci2(<span class="number">1000</span>) <span class="comment">// 7.0330367711422765e+208</span></span><br><span class="line">Fibonacci2(<span class="number">10000</span>) <span class="comment">// Infinity</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>函数式编程有一个概念，叫做柯里化（currying），意思是将多参数的函数转换成单参数的形式。这里也可以使用柯里化。</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">currying</span>(<span class="params">fn, n</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">m</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> fn.call(<span class="keyword">this</span>, m, n);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tailFactorial</span>(<span class="params">n, total</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (n === <span class="number">1</span>) <span class="keyword">return</span> total;</span><br><span class="line">  <span class="keyword">return</span> tailFactorial(n - <span class="number">1</span>, n * total);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> factorial = currying(tailFactorial, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">factorial(<span class="number">5</span>) <span class="comment">// 120</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>总结一下，递归本质上是一种循环操作。纯粹的函数式编程语言没有循环操作命令，所有的循环都用递归实现，这就是为什么尾递归对这些语言极其重要。对于其他支持“尾调用优化”的语言（比如 Lua，ES6），只需要知道循环可以用递归代替，而一旦使用递归，就最好使用尾递归。</p>
+</blockquote>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2019/09/04/es6不为人知的知识-md/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>
