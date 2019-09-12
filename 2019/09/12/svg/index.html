@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>svg | changzhn`s blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/css/app.css">
+  <!-- <link rel='stylesheet' href='http://fonts.useso.com/css?family=Source+Code+Pro'> -->
+  
+</head>
+
+<body>
+  <nav class="app-nav">
+  
+    
+      <a href="/.">home</a>
+    
+  
+    
+      <a href="/./categories/web">web</a>
+    
+  
+    
+      <a href="/./categories/微信">微信</a>
+    
+  
+    
+      <a href="/./categories/git">git</a>
+    
+  
+    
+      <a href="/./categories/服务端">服务端</a>
+    
+  
+    
+      <a href="https://github.com/Joo-fanChang">about</a>
+    
+  
+</nav>
+
+  <main class="post">
+  <article>
+  <h1 class="article-title">
+    <a href="/2019/09/12/svg/">svg</a>
+  </h1>
+
+  <section class="article-meta">
+    <p class="article-date">September 12 2019</p>
+  </section>
+
+  <section class="article-entry">
+    <h1 id="SVG"><a href="#SVG" class="headerlink" title="SVG"></a>SVG</h1><h2 id="SVG整体缩放的2种方式"><a href="#SVG整体缩放的2种方式" class="headerlink" title="SVG整体缩放的2种方式"></a>SVG整体缩放的2种方式</h2><ol>
+<li><p>使用viewbox属性</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg</span><br><span class="line">    width=&#123;<span class="string">`<span class="subst">$&#123;<span class="built_in">Math</span>.floor(width * ratio)&#125;</span>px`</span>&#125;</span><br><span class="line">    height=&#123;<span class="string">`<span class="subst">$&#123;<span class="built_in">Math</span>.floor(height * ratio)&#125;</span>px`</span>&#125;</span><br><span class="line">    viewBox=&#123;<span class="string">`0 0 <span class="subst">$&#123;width&#125;</span> <span class="subst">$&#123;height&#125;</span>`</span>&#125;</span><br><span class="line">    version=<span class="string">"1.1"</span></span><br><span class="line">    baseProfile=<span class="string">"full"</span></span><br><span class="line">    xmlns=<span class="string">"http://www.w3.org/2000/svg"</span></span><br><span class="line">&gt;</span><br><span class="line">    内部使用的是设计时的 width 和 height尺寸</span><br><span class="line">&lt;<span class="regexp">/svg&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用g的scale功能</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg</span><br><span class="line">    width=&#123;<span class="string">`<span class="subst">$&#123;<span class="built_in">Math</span>.floor(pageSize.width * ratio)&#125;</span>px`</span>&#125;</span><br><span class="line">    height=&#123;<span class="string">`<span class="subst">$&#123;<span class="built_in">Math</span>.floor(pageSize.height * ratio)&#125;</span>px`</span>&#125;</span><br><span class="line">    version=<span class="string">"1.1"</span></span><br><span class="line">    baseProfile=<span class="string">"full"</span></span><br><span class="line">    xmlns=<span class="string">"http://www.w3.org/2000/svg"</span></span><br><span class="line">&gt;</span><br><span class="line">    &lt;g transform=&#123;<span class="string">`scale(<span class="subst">$&#123;ratio&#125;</span>)`</span>&#125;&gt;</span><br><span class="line">        内部使用的是设计时的 width 和 height尺寸</span><br><span class="line">    &lt;<span class="regexp">/g&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>svg&gt;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+  </section>
+</article>
+
+  <div class="sharing grid">
+  <section class="profile grid-item grid">
+    <img class="avatar" src="/images/avatar.png" alt="avatar" />
+    <div class="grid-item">
+      <p class="title"> changzhn`s blog </p>
+      <p class="subtitle"> 中国人睡觉时，美国人大多数人在工作 </p>
+    <div>
+  </section>
+
+  <section class="share-btns">
+    <!-- <p> share it if you like it~ </p> -->
+    <a
+  class="twitter-share-button"
+  data-size="large"
+  data-via="DrakeLeung"
+  href="javascript:;"
+>
+  Best wishes.
+</a>
+
+  </section>
+</div>
+
+
+  
+    
+<section class="article-comment">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+<script>
+  var disqus_shortname = 'drakeleung';
+  
+  var disqus_url = 'https://joo-fanchang.github.io/2019/09/12/svg/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+  
+</main>
+
+</body>
+</html>
