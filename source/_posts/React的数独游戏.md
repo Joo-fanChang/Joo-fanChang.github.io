@@ -5,6 +5,7 @@ tags:
 ---
 ![在线试玩地址](changzhn.github.io/sudoku/)
 ![](https://github.com/changzhn/sudoku/raw/master/README.assets/Snipaste_01.png)
+![项目地址](github.com/changzhn/sudoku)
 
 完成的功能：
 
