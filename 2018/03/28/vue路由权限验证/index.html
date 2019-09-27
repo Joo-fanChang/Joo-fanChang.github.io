@@ -67,8 +67,8 @@
 <li>cookie</li>
 </ul>
 <h2 id="后台接口的验证"><a href="#后台接口的验证" class="headerlink" title="后台接口的验证"></a>后台接口的验证</h2><p>前端在发送所有接口在<code>request.header</code>中添加auth字段，携带koken，后台来判断是否可以访问，如果正常则返回数据，否则返回状态码401未登录，前端根据这个状态码来进行登录页面的跳转。</p>
-<p>因此做这个操作需要进行对前端接口请求进行拦截，下面是axios<a href="https://github.com/Joo-fanChang/vue-router-guard/blob/master/src/axios/axios.js" target="_blank" rel="noopener">示例代码</a></p>
-<h2 id="整体示例代码"><a href="#整体示例代码" class="headerlink" title="整体示例代码"></a>整体示例代码</h2><p><a href="https://github.com/Joo-fanChang/vue-router-guard" target="_blank" rel="noopener">git</a></p>
+<p>因此做这个操作需要进行对前端接口请求进行拦截，下面是axios<a href="https://github.com/changzhn/vue-router-guard/blob/master/src/axios/axios.js" target="_blank" rel="noopener">示例代码</a></p>
+<h2 id="整体示例代码"><a href="#整体示例代码" class="headerlink" title="整体示例代码"></a>整体示例代码</h2><p><a href="https://github.com/changzhn/vue-router-guard" target="_blank" rel="noopener">git</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># serve with hot reload at localhost:9016</span></span><br><span class="line">npm run dev</span><br><span class="line">npm run server</span><br></pre></td></tr></table></figure>
 
   </section>
