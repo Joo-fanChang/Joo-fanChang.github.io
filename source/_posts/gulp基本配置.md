@@ -138,7 +138,7 @@ gulp.task('default', ['connect', 'watch', 'js', 'less']);
 
 ```
 
-[源码](https://github.com/Joo-fanChang/gulp-template/tree/normal)
+[源码](https://github.com/changzhn/gulp-template/tree/normal)
 
 还有针对于打包方案
-[源码](https://github.com/Joo-fanChang/gulp-template/tree/spa)
+[源码](https://github.com/changzhn/gulp-template/tree/spa)

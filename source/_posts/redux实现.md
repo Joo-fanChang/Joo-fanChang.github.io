@@ -8,7 +8,7 @@ categories: web
 # 面试之redux的实现
 
 > 为啥使用redux略过... <br/>
-> [demo地址](https://github.com/Joo-fanChang/react-app/tree/redux)
+> [demo地址](https://github.com/changzhn/react-app/tree/redux)
 
 一般项目中使用redux时，会和react-redux配合使用，如果不使用react-redux时，redux也可以单独工作，使用react-redux会简化一些操作
 

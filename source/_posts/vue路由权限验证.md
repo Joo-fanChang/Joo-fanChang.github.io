@@ -79,10 +79,10 @@ router.beforeEach((to, from, next) => {
 
 前端在发送所有接口在`request.header`中添加auth字段，携带koken，后台来判断是否可以访问，如果正常则返回数据，否则返回状态码401未登录，前端根据这个状态码来进行登录页面的跳转。
 
-因此做这个操作需要进行对前端接口请求进行拦截，下面是axios[示例代码](https://github.com/Joo-fanChang/vue-router-guard/blob/master/src/axios/axios.js)
+因此做这个操作需要进行对前端接口请求进行拦截，下面是axios[示例代码](https://github.com/changzhn/vue-router-guard/blob/master/src/axios/axios.js)
 
 ## 整体示例代码
-[git](https://github.com/Joo-fanChang/vue-router-guard)
+[git](https://github.com/changzhn/vue-router-guard)
 
 ``` bash
 # serve with hot reload at localhost:9016

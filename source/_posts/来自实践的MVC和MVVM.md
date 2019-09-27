@@ -90,9 +90,9 @@ function bindEvent() {
 
 {% asset_img mvc3.png %}
 
-[点击查看代码示例](https://joo-fanchang.github.io/2018/04/13/%E6%9D%A5%E8%87%AA%E5%AE%9E%E8%B7%B5%E7%9A%84MVC%E5%92%8CMVVM/form.html)
+[点击查看代码示例](https://changzhn.github.io/2018/04/13/%E6%9D%A5%E8%87%AA%E5%AE%9E%E8%B7%B5%E7%9A%84MVC%E5%92%8CMVVM/form.html)
 
-[点击查看源码](https://github.com/Joo-fanChang/Joo-fanChang.github.io/blob/master/2018/04/13/%E6%9D%A5%E8%87%AA%E5%AE%9E%E8%B7%B5%E7%9A%84MVC%E5%92%8CMVVM/form.html)
+[点击查看源码](https://github.com/changzhn/changzhn.github.io/blob/master/2018/04/13/%E6%9D%A5%E8%87%AA%E5%AE%9E%E8%B7%B5%E7%9A%84MVC%E5%92%8CMVVM/form.html)
 
 
 ## 接下来对比一下 mvc 和 mvvm
